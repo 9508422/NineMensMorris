@@ -1,8 +1,13 @@
 package com.rhys.ninemensmorris;
 
+import com.rhys.ninemensmorris.View.Display;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        Display display = new Display();
+
+        display.place("a1");
+        display.drawBoard();
     }
 }

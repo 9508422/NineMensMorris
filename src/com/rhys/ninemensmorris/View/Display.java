@@ -10,12 +10,18 @@ public class Display {
     private Board board;
     private Game game;
 
-    public Display(Board board, Game game) {
+    public Display() {
         this.board = new Board();
-        this.game = new Game();
+        this.game = new Game(board);
+    }
+
+    public void place(String destStr) {
+        game.place(destStr);
     }
 
     public void drawBoard() {
-        
+        for (String spot : board.getPossibleSpots()) {
+            System.out.print(board.getSpot(spot).toString());
+        }
     }
 }
