@@ -13,7 +13,7 @@ public class Player {
 
     public Player(String name) {
         pieceSet = new HashSet<Piece>();
-        for (int i = 1; i < 9; i++) {
+        for (int i = 1; i <= 9; i++) {
             pieceSet.add(new Piece(this));
         }
         this.name = name;
@@ -57,6 +57,8 @@ public class Player {
     public boolean threePiecesLeft() {
         return pieceSet.size() == 3;
     }
+
+    public boolean twoPiecesLeft() { return pieceSet.size() == 2; }
 
     public String toString(String toggle) {
         if (toggle == "name") {

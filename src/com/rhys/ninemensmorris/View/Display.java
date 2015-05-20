@@ -3,6 +3,9 @@ package com.rhys.ninemensmorris.View;
 import com.rhys.ninemensmorris.Controller.Game;
 import com.rhys.ninemensmorris.Model.Board;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 /**
  * Created by Rhys on 14/05/2015.
  */
@@ -13,6 +16,51 @@ public class Display {
     public Display() {
         this.board = new Board();
         this.game = new Game(board, "Rhys", "Abi");
+        play();
+    }
+
+    public Board getBoard() {
+        return board;
+    } // for testing purposes
+
+    public void play() {
+        drawBoard();
+        Scanner in = new Scanner(System.in);
+        String input = "";
+        while (game.getGameState() != 4) {
+            clear();
+            System.out.print(game.getCurrentPlayer() + "'s turn: ");
+            input = in.next().trim();
+            if (input.length() > 2) {
+                String[] str = input.split("->");
+                game.move(str[0], str[1]);
+            } else {
+                System.out.println(game.move(input));
+            }
+            drawBoard();
+            input = "";
+        }
+        System.out.println("GAME COMPLETE!");
+    }
+
+    public void clear() {
+        try
+        {
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows"))
+            {
+                Runtime.getRuntime().exec("cls");
+            }
+            else
+            {
+                Runtime.getRuntime().exec("clear");
+            }
+        }
+        catch (final Exception e)
+        {
+            //  Handle any exceptions.
+        }
     }
 
     public void move(String destStr) {
@@ -23,10 +71,6 @@ public class Display {
     public void move(String sourceStr, String destStr) {
         System.out.println(game.move(sourceStr.toLowerCase(), destStr.toLowerCase()));
         drawBoard();
-    }
-
-    public Board getBoard() {
-        return board;
     }
 
     public void drawBoard() {

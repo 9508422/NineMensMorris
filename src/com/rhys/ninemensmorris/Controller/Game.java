@@ -1,6 +1,7 @@
 package com.rhys.ninemensmorris.Controller;
 
 import com.rhys.ninemensmorris.Model.Board;
+import com.rhys.ninemensmorris.Model.Human;
 import com.rhys.ninemensmorris.Model.Move;
 import com.rhys.ninemensmorris.Model.Player;
 
@@ -14,20 +15,30 @@ public class Game {
     private Player[] players;
     private Board board;
     private int turn;
-    private int gameState; // 0 = place, 1 = remove, 2 = slide, 3 = hop
+    private int gameState; // 0 = place, 1 = remove, 2 = slide, 3 = hop, 4 = complete
 
     public Game(Board board, String playerOne, String playerTwo) {
         this.moveStack = new Stack<Move>();
-        this.players = new Player[]{new Player(playerOne), new Player(playerTwo)};
+        this.players = new Player[] {new Human(playerOne), new Human(playerTwo)};
         this.board = board;
-        turn = 0;
+        turn = 0; // 0 = player 1, 1 = player 2
         this.gameState = checkGameState();
+    }
+
+    public int getGameState() {
+        return gameState;
+    }
+
+    public String getCurrentPlayer() {
+        return players[turn].toString("name");
     }
 
     private int checkGameState() {
         if (players[turn].allPiecesPlaced()) {
             if (players[turn].threePiecesLeft()) {
                 return 3;
+            } else if (players[turn].twoPiecesLeft()) {
+                return 4;
             } else {
                 return 2;
             }
@@ -37,28 +48,37 @@ public class Game {
     }
 
     public String move(String destStr) {
-        if (gameState != 2) {
-            return move(null, destStr);
+        if (board.spotExists(destStr)) {
+            if (gameState != 2) {
+                return move(null, destStr);
+            } else {
+                return "You need to select which piece to move to that destination!";
+            }
         } else {
-            return "You need to select which piece to move to that destination!";
+            return "Spot does not exist!";
         }
     }
 
     public String move(String sourceStr, String destStr) {
-        if (gameState == 0) {
-            return place(destStr);
-        } else if (gameState == 1) {
-            return remove(destStr);
-        } else if (gameState == 2) {
-            return slide(sourceStr, destStr);
-        } else if (gameState == 3) {
-            return null;
+        if (board.spotExists(destStr)) {
+            String player = players[turn].toString("name");
+            if (gameState == 0) {
+                return place(player, destStr);
+            } else if (gameState == 1) {
+                return remove(player, destStr);
+            } else if (gameState == 2) {
+                return slide(player, sourceStr, destStr);
+            } else if (gameState == 3) {
+                return hop(player, sourceStr, destStr);
+            } else {
+                return null;
+            }
+        } else {
+            return "Destination spot doesn't exist!";
         }
-        return null;
     }
 
-    private String place(String destStr) {
-        String player = players[turn].toString("name");
+    private String place(String player, String destStr) {
          if (board.getSpot(destStr).hasPiece()) {
              return "Piece already located on: " + destStr;
          } else {
@@ -73,29 +93,35 @@ public class Game {
          }
     }
 
-    private String remove(String spotStr) {
-        String player = players[turn].toString("name");
+    private String remove(String player, String spotStr) {
         if (board.getSpot(spotStr).hasPiece()) {
             if (!board.getSpot(spotStr).getPiece().getPlayer().equals(players[turn])) {
                 moveStack.add(players[turn].remove(board.getSpot(spotStr)));
                 turn = changeTurn();
                 gameState = checkGameState();
-                return player + " removed a piece on " + spotStr;
+                if (gameState == 4) {
+                    return player + "removed a piece on " + spotStr + " and won!";
+                } else {
+                    return player + " removed a piece on " + spotStr;
+                }
             } else {
                 return "You cannot remove your own piece!";
             }
         } else {
-            return "No piece located at: " + spotStr;
+            return "There is no piece located on " + spotStr;
         }
     }
 
-    private String slide(String sourceStr, String destStr) {
-        String player = players[turn].toString("name");
+    private String slide(String player, String sourceStr, String destStr) {
         if (board.getSpot(sourceStr).hasPiece()) {
             if (board.getSpot(sourceStr).getPiece().getPlayer().equals(players[turn])) {
                 if (!board.getSpot(destStr).hasPiece()) {
                     if (board.getSpot(sourceStr).hasNeighbour(board.getSpot(destStr))) {
                         moveStack.add(players[turn].slide(board.getSpot(sourceStr), board.getSpot(destStr)));
+                        if (board.wasMillCreated(board.getSpot(destStr))) {
+                            gameState = 1;
+                            return player + " placed a piece on: " + destStr + "\nMill created, remove opponents piece!";
+                        }
                         turn = changeTurn();
                         gameState = checkGameState();
                         return player + " slid a piece from " + sourceStr + " to " + destStr;
@@ -113,12 +139,15 @@ public class Game {
         }
     }
 
-    private String hop(String sourceStr, String destStr) {
-        String player = players[turn].toString("name");
+    private String hop(String player, String sourceStr, String destStr) {
         if (board.getSpot(sourceStr).hasPiece()) {
             if (board.getSpot(sourceStr).getPiece().getPlayer().equals(players[turn])) {
                 if (!board.getSpot(destStr).hasPiece()) {
                     moveStack.add(players[turn].hop(board.getSpot(sourceStr), board.getSpot(destStr)));
+                    if (board.wasMillCreated(board.getSpot(destStr))) {
+                        gameState = 1;
+                        return player + " placed a piece on: " + destStr + "\nMill created, remove opponents piece!";
+                    }
                     turn = changeTurn();
                     gameState = checkGameState();
                     return player + " hopped a piece from " + sourceStr + " to " + destStr;

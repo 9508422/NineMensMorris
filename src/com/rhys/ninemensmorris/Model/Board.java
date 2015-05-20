@@ -55,31 +55,31 @@ public class Board {
         getSpot("g4").setNeighbours(new Spot[] {getSpot("f4"), getSpot("g1"), getSpot("g7")});
         getSpot("g7").setNeighbours(new Spot[] {getSpot("d7"), getSpot("g4")});
 
-        Spot[][] possibleMillsArray = new Spot[][] {
-                {getSpot("a1"), getSpot("a4"), getSpot("a7")},
-                {getSpot("a1"), getSpot("d1"), getSpot("g1")},
-                {getSpot("a4"), getSpot("b4"), getSpot("c4")},
-                {getSpot("a7"), getSpot("d7"), getSpot("g7")},
-                {getSpot("b2"), getSpot("b4"), getSpot("b6")},
-                {getSpot("b2"), getSpot("d2"), getSpot("f2")},
-                {getSpot("b6"), getSpot("d6"), getSpot("f6")},
-                {getSpot("c3"), getSpot("c4"), getSpot("c5")},
-                {getSpot("c3"), getSpot("d3"), getSpot("e3")},
-                {getSpot("c5"), getSpot("d5"), getSpot("e5")},
-                {getSpot("d1"), getSpot("d2"), getSpot("d3")},
-                {getSpot("d5"), getSpot("d6"), getSpot("d7")},
-                {getSpot("e3"), getSpot("e4"), getSpot("e5")},
-                {getSpot("e4"), getSpot("f4"), getSpot("g4")},
-                {getSpot("f2"), getSpot("f4"), getSpot("f6")},
-                {getSpot("g1"), getSpot("g4"), getSpot("g7")}
+        String[][] possibleMillsArray = new String[][] {
+                {"a1", "a4", "a7"},
+                {"a1", "d1", "g1"},
+                {"a4", "b4", "c4"},
+                {"a7", "d7", "g7"},
+                {"b2", "b4", "b6"},
+                {"b2", "d2", "f2"},
+                {"b6", "d6", "f6"},
+                {"c3", "c4", "c5"},
+                {"c3", "d3", "e3"},
+                {"c5", "d5", "e5"},
+                {"d1", "d2", "d3"},
+                {"d5", "d6", "d7"},
+                {"e3", "e4", "e5"},
+                {"e4", "f4", "g4"},
+                {"f2", "f4", "f6"},
+                {"g1", "g4", "g7"}
         };
 
         possibleMills = new HashSet<Set<Spot>>();
 
-        for (Spot[] possibleMillArray : possibleMillsArray) {
+        for (String[] possibleMillArray : possibleMillsArray) {
             Set<Spot> possibleMill = new HashSet<Spot>();
-            for (Spot spot : possibleMillArray) {
-                possibleMill.add(spot);
+            for (String coord : possibleMillArray) {
+                possibleMill.add(getSpot(coord));
             }
             possibleMills.add(possibleMill);
         }
@@ -93,15 +93,22 @@ public class Board {
         return possibleSpots;
     }
 
+    public boolean spotExists(String coord) {
+        for (int i = 0; i < possibleSpots.length; i++) {
+            if (possibleSpots[i].equals(coord)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean wasMillCreated(Spot dest) {
         int count = 0;
         for (Set<Spot> mill : possibleMills) {
             if (mill.contains(dest)) {
                 for (Spot spot : mill) {
-                    if (spot.hasPiece()) {
-                        if (spot.getPiece().equals(dest.getPiece())) {
-                            count++;
-                        }
+                    if (spot.hasPiece() && spot.getPiece().equals(dest.getPiece())) {
+                        count++;
                     }
                 }
                 if (count == 3) {
