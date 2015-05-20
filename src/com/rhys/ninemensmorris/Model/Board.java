@@ -89,13 +89,9 @@ public class Board {
         return spotMap.get(coord);
     }
 
-    public String[] getPossibleSpots() {
-        return possibleSpots;
-    }
-
     public boolean spotExists(String coord) {
         for (int i = 0; i < possibleSpots.length; i++) {
-            if (possibleSpots[i].equals(coord)) {
+            if (possibleSpots[i].equals(coord) || coord == null) {
                 return true;
             }
         }
