@@ -15,6 +15,11 @@ public class Move {
         this.source = source;
         this.dest = dest;
         this.piece.setSpot(this.dest);
-        this.dest.setPiece(this.piece);
+        if (this.source != null) {
+            this.source.setPiece(null);
+        }
+        if (this.dest != null) {
+            this.dest.setPiece(this.piece);
+        }
     }
 }

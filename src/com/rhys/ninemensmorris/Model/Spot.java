@@ -9,81 +9,42 @@ import java.util.Set;
 public class Spot {
     private Piece piece;
     private String coord;
+    private Set<Spot> neighbours;
 
     public Spot(String coord) {
         this.piece = null;
         this.coord = coord;
+        this.neighbours = new HashSet<Spot>();
     }
 
-    public boolean hasPiece() {
-        return !(piece == null);
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setNeighbours(Spot[] neighbours) {
+        for (int i = 0; i < neighbours.length; i++) {
+            this.neighbours.add(neighbours[i]);
+        }
     }
 
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
 
+    public boolean hasNeighbour(Spot neighbour) {
+        return neighbours.contains(neighbour);
+    }
+
+    public boolean hasPiece() {
+        return !(piece == null);
+    }
+
     @Override
     public String toString() {
-        String out = "";
-        Set<String> doubleRight = new HashSet<String>();
-        doubleRight.add("a1");
-        doubleRight.add("a4");
-        doubleRight.add("g1");
-        doubleRight.add("g4");
-        Set<String> singleRight = new HashSet<String>();
-        singleRight.add("b2");
-        singleRight.add("b4");
-        singleRight.add("f2");
-        singleRight.add("f4");
-        singleRight.add("d3");
-        Set<String> end = new HashSet<String>();
-        end.add("a7");
-        end.add("b6");
-        end.add("c5");
-        end.add("d7");
-        end.add("e5");
-        end.add("f6");
-        end.add("g7");
-        Set<String> doubleLeft = new HashSet<String>();
-        doubleLeft.add("c3");
-        doubleLeft.add("e3");
-        Set<String> singleLeft = new HashSet<String>();
-        singleLeft.add("b2");
-        singleLeft.add("f2");
-        Set<String> singleEndRight = new HashSet<String>();
-        singleEndRight.add("c5");
-        singleEndRight.add("e5");
-        Set<String> lineEnd = new HashSet<String>();
-        lineEnd.add("b6");
-        lineEnd.add("c5");
-        lineEnd.add("e5");
-        lineEnd.add("f6");
-
-        if (piece == null) {
-            out += "O";
+        if (hasPiece()) {
+            return piece.toString();
         } else {
-            piece.toString();
+            return "O";
         }
-        if (doubleRight.contains(coord)) {
-            out += "--";
-        } else if (singleRight.contains(coord)) {
-            out += "-";
-        }
-        if (doubleLeft.contains(coord)) {
-            out = "||" + out;
-        } else if (singleLeft.contains(coord)) {
-            out = "|" + out;
-        }
-        if (singleEndRight.contains(coord)) {
-            out += "|";
-        }
-        if (lineEnd.contains(coord)) {
-            out += "|";
-        }
-        if (end.contains(coord)) {
-            out += "\n";
-        }
-        return out;
     }
 }
