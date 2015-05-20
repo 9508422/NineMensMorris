@@ -22,7 +22,7 @@ public class Game {
         this.players = new Player[] {new Human(playerOne), new Human(playerTwo)};
         this.board = board;
         turn = 0; // 0 = player 1, 1 = player 2
-        this.gameState = checkGameState();
+        this.gameState = setGameState();
     }
 
     public int getGameState() {
@@ -33,7 +33,15 @@ public class Game {
         return players[turn].toString("name");
     }
 
-    private int checkGameState() {
+    public String getOtherPlayer() {
+        if (turn == 0) {
+            return players[1].toString("name");
+        } else {
+            return players[0].toString("name");
+        }
+    }
+
+    private int setGameState() {
         if (players[turn].allPiecesPlaced()) {
             if (players[turn].threePiecesLeft()) {
                 return 3;
@@ -60,7 +68,7 @@ public class Game {
     }
 
     public String move(String sourceStr, String destStr) {
-        if (board.spotExists(destStr)) {
+        if (board.spotExists(sourceStr)) {
             String player = players[turn].toString("name");
             if (gameState == 0) {
                 return place(player, destStr);
@@ -85,10 +93,10 @@ public class Game {
              moveStack.add(players[turn].place(board.getSpot(destStr)));
              if (board.wasMillCreated(board.getSpot(destStr))) {
                  gameState = 1;
-                 return player + " placed a piece on: " + destStr + "\nMill created, remove opponents piece!";
+                 return player + " placed a piece on " + destStr + "\nMill created!";
              }
              turn = changeTurn();
-             gameState = checkGameState();
+             gameState = setGameState();
              return player + " placed a piece on " + destStr;
          }
     }
@@ -98,7 +106,7 @@ public class Game {
             if (!board.getSpot(spotStr).getPiece().getPlayer().equals(players[turn])) {
                 moveStack.add(players[turn].remove(board.getSpot(spotStr)));
                 turn = changeTurn();
-                gameState = checkGameState();
+                gameState = setGameState();
                 if (gameState == 4) {
                     return player + "removed a piece on " + spotStr + " and won!";
                 } else {
@@ -123,7 +131,7 @@ public class Game {
                             return player + " placed a piece on: " + destStr + "\nMill created, remove opponents piece!";
                         }
                         turn = changeTurn();
-                        gameState = checkGameState();
+                        gameState = setGameState();
                         return player + " slid a piece from " + sourceStr + " to " + destStr;
                     } else {
                         return destStr + " is not a neighbour of " + sourceStr;
@@ -149,7 +157,7 @@ public class Game {
                         return player + " placed a piece on: " + destStr + "\nMill created, remove opponents piece!";
                     }
                     turn = changeTurn();
-                    gameState = checkGameState();
+                    gameState = setGameState();
                     return player + " hopped a piece from " + sourceStr + " to " + destStr;
                 } else {
                     return "There is already a piece on " + destStr;
