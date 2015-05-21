@@ -21,14 +21,14 @@ public class Spot {
         return piece;
     }
 
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
     public void setNeighbours(Spot[] neighbours) {
         for (int i = 0; i < neighbours.length; i++) {
             this.neighbours.add(neighbours[i]);
         }
-    }
-
-    public void setPiece(Piece piece) {
-        this.piece = piece;
     }
 
     public boolean hasNeighbour(Spot neighbour) {

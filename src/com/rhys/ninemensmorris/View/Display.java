@@ -3,7 +3,6 @@ package com.rhys.ninemensmorris.View;
 import com.rhys.ninemensmorris.Controller.Game;
 import com.rhys.ninemensmorris.Model.Board;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -11,26 +10,21 @@ import java.util.Scanner;
  */
 public class Display {
     private Board board;
-    private Game game;
 
     public Display() {
         this.board = new Board();
         play();
     }
 
-    public Board getBoard() {
-        return board;
-    } // for testing purposes
-
     public void play() {
         Scanner in = new Scanner(System.in);
-        String input = "";
+        String input;
 
         System.out.print("Player one name: ");
         String playerOne = in.next().trim();
         System.out.print("Player two name: ");
         String playerTwo = in.next().trim();
-        game = new Game(board, playerOne, playerTwo);
+        Game game = new Game(board, playerOne, playerTwo);
 
         while (game.getGameState() != 4) {
             drawBoard();
@@ -60,7 +54,6 @@ public class Display {
                     System.out.println(game.move(input));
                 }
             }
-            input = "";
         }
         in.close();
         System.out.println("GAME COMPLETE!");

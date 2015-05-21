@@ -11,24 +11,22 @@ import java.util.Stack;
  * Created by Rhys on 14/05/2015.
  */
 public class Game {
+    private static final int STATE_PLACE = 0;
+    private static final int STATE_REMOVE = 1;
+    private static final int STATE_SLIDE = 2;
+    private static final int STATE_FLY = 3;
+    private static final int STATE_COMPLETE = 4;
+    private static final int PLAYER_ONE = 0;
+    private static final int PLAYER_TWO = 1;
     private Stack<Move> moveStack;
     private Player[] players;
     private Board board;
     private int turn;
     private int gameState; // 0 = place, 1 = remove, 2 = slide, 3 = fly, 4 = complete
 
-    private static final int STATE_PLACE = 0;
-    private static final int STATE_REMOVE = 1;
-    private static final int STATE_SLIDE= 2;
-    private static final int STATE_FLY = 3;
-    private static final int STATE_COMPLETE = 4;
-
-    private static final int PLAYER_ONE = 0;
-    private static final int PLAYER_TWO = 1;
-
     public Game(Board board, String playerOne, String playerTwo) {
         this.moveStack = new Stack<Move>();
-        this.players = new Player[] {new Human(playerOne), new Human(playerTwo)};
+        this.players = new Player[]{new Human(playerOne), new Human(playerTwo)};
         this.board = board;
         turn = PLAYER_ONE;
         this.gameState = setGameState();
@@ -96,18 +94,18 @@ public class Game {
     }
 
     private String place(String player, String destStr) {
-         if (board.getSpot(destStr).hasPiece()) {
-             return "Piece already located on: " + destStr;
-         } else {
-             moveStack.push(players[turn].place(board.getSpot(destStr)));
-             if (board.wasMillCreated(board.getSpot(destStr))) {
-                 gameState = STATE_REMOVE;
-                 return player + " placed a piece on " + destStr + "\nMill created!";
-             }
-             turn = changeTurn();
-             gameState = setGameState();
-             return player + " placed a piece on " + destStr;
-         }
+        if (board.getSpot(destStr).hasPiece()) {
+            return "Piece already located on: " + destStr;
+        } else {
+            moveStack.push(players[turn].place(board.getSpot(destStr)));
+            if (board.wasMillCreated(board.getSpot(destStr))) {
+                gameState = STATE_REMOVE;
+                return player + " placed a piece on " + destStr + "\nMill created!";
+            }
+            turn = changeTurn();
+            gameState = setGameState();
+            return player + " placed a piece on " + destStr;
+        }
     }
 
     private String remove(String player, String spotStr) {

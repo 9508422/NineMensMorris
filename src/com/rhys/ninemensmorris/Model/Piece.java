@@ -7,18 +7,9 @@ public class Piece {
     private Spot spot;
     private Player player;
 
-    public Piece (Player player) {
+    public Piece(Player player) {
         this.player = player;
         this.spot = null;
-    }
-
-    public Piece(Player player, Spot spot) {
-        this.player = player;
-        this.spot = spot;
-    }
-
-    public void setSpot(Spot spot) {
-        this.spot = spot;
     }
 
     public Player getPlayer() {
@@ -31,6 +22,10 @@ public class Piece {
 
     public Spot getSpot() {
         return spot;
+    }
+
+    public void setSpot(Spot spot) {
+        this.spot = spot;
     }
 
     @Override

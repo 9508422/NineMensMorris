@@ -66,12 +66,14 @@ public class Player {
         return pieceSet.size() == 3;
     }
 
-    public boolean twoPiecesLeft() { return pieceSet.size() == 2; }
+    public boolean twoPiecesLeft() {
+        return pieceSet.size() == 2;
+    }
 
     public String toString(String toggle) {
-        if (toggle == "name") {
+        if (toggle.equals("name")) {
             return name;
-        } else if (toggle == "colour") {
+        } else if (toggle.equals("colour")) {
             return colour;
         }
         return null;
