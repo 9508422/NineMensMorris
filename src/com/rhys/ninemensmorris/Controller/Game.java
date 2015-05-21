@@ -18,9 +18,9 @@ public class Game {
     private static final int STATE_COMPLETE = 4;
     private static final int PLAYER_ONE = 0;
     private static final int PLAYER_TWO = 1;
-    private Stack<Move> moveStack;
-    private Player[] players;
-    private Board board;
+    private final Stack<Move> moveStack;
+    private final Player[] players;
+    private final Board board;
     private int turn;
     private int gameState; // 0 = place, 1 = remove, 2 = slide, 3 = fly, 4 = complete
 

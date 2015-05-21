@@ -5,7 +5,7 @@ package com.rhys.ninemensmorris.Model;
  */
 public class Piece {
     private Spot spot;
-    private Player player;
+    private final Player player;
 
     public Piece(Player player) {
         this.player = player;
@@ -14,10 +14,6 @@ public class Piece {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
     public Spot getSpot() {

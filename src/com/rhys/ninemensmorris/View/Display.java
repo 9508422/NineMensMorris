@@ -9,14 +9,14 @@ import java.util.Scanner;
  * Created by Rhys on 14/05/2015.
  */
 public class Display {
-    private Board board;
+    private final Board board;
 
     public Display() {
         this.board = new Board();
         play();
     }
 
-    public void play() {
+    private void play() {
         Scanner in = new Scanner(System.in);
         String input;
 
@@ -59,7 +59,7 @@ public class Display {
         System.out.println("GAME COMPLETE!");
     }
 
-    public void drawBoard() {
+    private void drawBoard() {
         System.out.println("7 " + board.getSpot("a7") + " - - " + board.getSpot("d7") + " - - " + board.getSpot("g7"));
         System.out.println("6 | " + board.getSpot("b6") + " - " + board.getSpot("d6") + " - " + board.getSpot("f6") +
                 " |");

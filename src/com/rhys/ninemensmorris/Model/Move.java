@@ -4,12 +4,12 @@ package com.rhys.ninemensmorris.Model;
  * Created by Rhys on 14/05/2015.
  */
 public class Move {
-    private Player player;
-    private Piece piece;
-    private Spot source;
-    private Spot dest;
+    private final Player player;
+    private final Piece piece;
+    private final Spot source;
+    private final Spot dest;
 
-    public Move(Player player, Piece piece, Spot source, Spot dest) {
+    Move(Player player, Piece piece, Spot source, Spot dest) {
         this.player = player;
         this.piece = piece;
         this.source = source;

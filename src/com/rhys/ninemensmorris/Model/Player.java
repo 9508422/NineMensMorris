@@ -7,11 +7,11 @@ import java.util.Set;
  * Created by Rhys on 14/05/2015.
  */
 public class Player {
-    private Set<Piece> pieceSet;
-    private String name;
-    private String colour;
+    private final Set<Piece> pieceSet;
+    private final String name;
+    private final String colour;
 
-    public Player(String name) {
+    Player(String name) {
         pieceSet = new HashSet<Piece>();
         for (int i = 1; i <= 9; i++) {
             pieceSet.add(new Piece(this));

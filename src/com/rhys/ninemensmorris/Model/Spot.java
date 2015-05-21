@@ -1,5 +1,6 @@
 package com.rhys.ninemensmorris.Model;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,12 +9,10 @@ import java.util.Set;
  */
 public class Spot {
     private Piece piece;
-    private String coord;
-    private Set<Spot> neighbours;
+    private final Set<Spot> neighbours;
 
-    public Spot(String coord) {
+    public Spot() {
         this.piece = null;
-        this.coord = coord;
         this.neighbours = new HashSet<Spot>();
     }
 
@@ -26,9 +25,7 @@ public class Spot {
     }
 
     public void setNeighbours(Spot[] neighbours) {
-        for (int i = 0; i < neighbours.length; i++) {
-            this.neighbours.add(neighbours[i]);
-        }
+        Collections.addAll(this.neighbours, neighbours);
     }
 
     public boolean hasNeighbour(Spot neighbour) {

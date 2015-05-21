@@ -10,9 +10,9 @@ import java.util.Set;
  * Created by Rhys on 14/05/2015.
  */
 public class Board {
-    private Map<String, Spot> spotMap;
-    private String[] possibleSpots;
-    private Set<Set<Spot>> possibleMills;
+    private final Map<String, Spot> spotMap;
+    private final String[] possibleSpots;
+    private final Set<Set<Spot>> possibleMills;
 
     public Board() {
         spotMap = new HashMap<String, Spot>();
@@ -26,7 +26,7 @@ public class Board {
                 "a1",          "d1",          "g1"
         };
         for (String coord : possibleSpots) {
-            spotMap.put(coord, new Spot(coord));
+            spotMap.put(coord, new Spot());
         }
 
         getSpot("a1").setNeighbours(new Spot[]{getSpot("a4"), getSpot("d1")});
@@ -89,8 +89,8 @@ public class Board {
     }
 
     public boolean spotExists(String coord) {
-        for (int i = 0; i < possibleSpots.length; i++) {
-            if (possibleSpots[i].equals(coord) || coord == null) {
+        for (String possibleSpot : possibleSpots) {
+            if (possibleSpot.equals(coord) || coord == null) {
                 return true;
             }
         }
