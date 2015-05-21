@@ -15,7 +15,6 @@ public class Display {
 
     public Display() {
         this.board = new Board();
-        this.game = new Game(board, "White", "Black");
         play();
     }
 
@@ -26,6 +25,13 @@ public class Display {
     public void play() {
         Scanner in = new Scanner(System.in);
         String input = "";
+
+        System.out.print("Player one name: ");
+        String playerOne = in.next().trim();
+        System.out.print("Player two name: ");
+        String playerTwo = in.next().trim();
+        game = new Game(board, playerOne, playerTwo);
+
         while (game.getGameState() != 4) {
             drawBoard();
 
@@ -36,7 +42,7 @@ public class Display {
             } else if (game.getGameState() == 2) {
                 System.out.print(game.getCurrentPlayer() + ", slide one of your pieces (x1y1->x2y2): ");
             } else if (game.getGameState() == 3) {
-                System.out.print(game.getCurrentPlayer() + ", hop one of your pieces (x1y1->x2y2): ");
+                System.out.print(game.getCurrentPlayer() + ", fly one of your pieces (x1y1->x2y2): ");
             }
 
             input = in.next().trim().toLowerCase();
@@ -44,10 +50,12 @@ public class Display {
                 System.out.println("GAME STOPPED!");
                 in.close();
                 return;
+            } else if (input.equals("undo")) {
+                System.out.println(game.undo());
             } else {
                 if (input.length() > 2) {
                     String[] str = input.split("->");
-                    game.move(str[0], str[1]);
+                    System.out.println(game.move(str[0], str[1]));
                 } else {
                     System.out.println(game.move(input));
                 }

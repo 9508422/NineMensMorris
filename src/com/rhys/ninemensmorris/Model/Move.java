@@ -22,4 +22,21 @@ public class Move {
             this.dest.setPiece(this.piece);
         }
     }
+
+    public void undo() {
+        piece.setSpot(source);
+        if (!player.hasPiece(piece)) {
+            piece.getPlayer().addPiece(piece);
+        }
+        if (dest != null) {
+            dest.setPiece(null);
+        }
+        if (source != null) {
+            source.setPiece(piece);
+        }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 }

@@ -15,13 +15,22 @@ public class Game {
     private Player[] players;
     private Board board;
     private int turn;
-    private int gameState; // 0 = place, 1 = remove, 2 = slide, 3 = hop, 4 = complete
+    private int gameState; // 0 = place, 1 = remove, 2 = slide, 3 = fly, 4 = complete
+
+    private static final int STATE_PLACE = 0;
+    private static final int STATE_REMOVE = 1;
+    private static final int STATE_SLIDE= 2;
+    private static final int STATE_FLY = 3;
+    private static final int STATE_COMPLETE = 4;
+
+    private static final int PLAYER_ONE = 0;
+    private static final int PLAYER_TWO = 1;
 
     public Game(Board board, String playerOne, String playerTwo) {
         this.moveStack = new Stack<Move>();
         this.players = new Player[] {new Human(playerOne), new Human(playerTwo)};
         this.board = board;
-        turn = 0; // 0 = player 1, 1 = player 2
+        turn = PLAYER_ONE;
         this.gameState = setGameState();
     }
 
@@ -44,14 +53,14 @@ public class Game {
     private int setGameState() {
         if (players[turn].allPiecesPlaced()) {
             if (players[turn].threePiecesLeft()) {
-                return 3;
+                return STATE_FLY;
             } else if (players[turn].twoPiecesLeft()) {
-                return 4;
+                return STATE_COMPLETE;
             } else {
-                return 2;
+                return STATE_SLIDE;
             }
         } else {
-            return 0;
+            return STATE_PLACE;
         }
     }
 
@@ -70,14 +79,14 @@ public class Game {
     public String move(String sourceStr, String destStr) {
         if (board.spotExists(sourceStr)) {
             String player = players[turn].toString("name");
-            if (gameState == 0) {
+            if (gameState == STATE_PLACE) {
                 return place(player, destStr);
-            } else if (gameState == 1) {
+            } else if (gameState == STATE_REMOVE) {
                 return remove(player, destStr);
-            } else if (gameState == 2) {
+            } else if (gameState == STATE_SLIDE) {
                 return slide(player, sourceStr, destStr);
-            } else if (gameState == 3) {
-                return hop(player, sourceStr, destStr);
+            } else if (gameState == STATE_FLY) {
+                return fly(player, sourceStr, destStr);
             } else {
                 return null;
             }
@@ -90,9 +99,9 @@ public class Game {
          if (board.getSpot(destStr).hasPiece()) {
              return "Piece already located on: " + destStr;
          } else {
-             moveStack.add(players[turn].place(board.getSpot(destStr)));
+             moveStack.push(players[turn].place(board.getSpot(destStr)));
              if (board.wasMillCreated(board.getSpot(destStr))) {
-                 gameState = 1;
+                 gameState = STATE_REMOVE;
                  return player + " placed a piece on " + destStr + "\nMill created!";
              }
              turn = changeTurn();
@@ -104,10 +113,10 @@ public class Game {
     private String remove(String player, String spotStr) {
         if (board.getSpot(spotStr).hasPiece()) {
             if (!board.getSpot(spotStr).getPiece().getPlayer().equals(players[turn])) {
-                moveStack.add(players[turn].remove(board.getSpot(spotStr)));
+                moveStack.push(players[turn].remove(board.getSpot(spotStr)));
                 turn = changeTurn();
                 gameState = setGameState();
-                if (gameState == 4) {
+                if (gameState == STATE_REMOVE) {
                     return player + "removed a piece on " + spotStr + " and won!";
                 } else {
                     return player + " removed a piece on " + spotStr;
@@ -125,10 +134,10 @@ public class Game {
             if (board.getSpot(sourceStr).getPiece().getPlayer().equals(players[turn])) {
                 if (!board.getSpot(destStr).hasPiece()) {
                     if (board.getSpot(sourceStr).hasNeighbour(board.getSpot(destStr))) {
-                        moveStack.add(players[turn].slide(board.getSpot(sourceStr), board.getSpot(destStr)));
+                        moveStack.push(players[turn].slide(board.getSpot(sourceStr), board.getSpot(destStr)));
                         if (board.wasMillCreated(board.getSpot(destStr))) {
-                            gameState = 1;
-                            return player + " placed a piece on: " + destStr + "\nMill created, remove opponents piece!";
+                            gameState = STATE_REMOVE;
+                            return player + " slid a piece from " + sourceStr + " to " + destStr + "\nMill created, remove opponents piece!";
                         }
                         turn = changeTurn();
                         gameState = setGameState();
@@ -147,18 +156,18 @@ public class Game {
         }
     }
 
-    private String hop(String player, String sourceStr, String destStr) {
+    private String fly(String player, String sourceStr, String destStr) {
         if (board.getSpot(sourceStr).hasPiece()) {
             if (board.getSpot(sourceStr).getPiece().getPlayer().equals(players[turn])) {
                 if (!board.getSpot(destStr).hasPiece()) {
-                    moveStack.add(players[turn].hop(board.getSpot(sourceStr), board.getSpot(destStr)));
+                    moveStack.push(players[turn].fly(board.getSpot(sourceStr), board.getSpot(destStr)));
                     if (board.wasMillCreated(board.getSpot(destStr))) {
-                        gameState = 1;
-                        return player + " placed a piece on: " + destStr + "\nMill created, remove opponents piece!";
+                        gameState = STATE_REMOVE;
+                        return player + " flew a piece from " + sourceStr + " to " + destStr + "\nMill created, remove opponents piece!";
                     }
                     turn = changeTurn();
                     gameState = setGameState();
-                    return player + " hopped a piece from " + sourceStr + " to " + destStr;
+                    return player + " flew a piece from " + sourceStr + " to " + destStr;
                 } else {
                     return "There is already a piece on " + destStr;
                 }
@@ -170,11 +179,23 @@ public class Game {
         }
     }
 
-    private int changeTurn() {
-        if (turn == 0) {
-            return 1;
+    public String undo() {
+        if (moveStack.size() > 0) {
+            moveStack.pop().undo();
+            if (moveStack.size() == 0 || players[turn] == moveStack.peek().getPlayer()) {
+                turn = changeTurn();
+            }
+            return "Move undone!";
         } else {
-            return 0;
+            return "No moves to undo!";
+        }
+    }
+
+    private int changeTurn() {
+        if (turn == PLAYER_ONE) {
+            return PLAYER_TWO;
+        } else {
+            return PLAYER_ONE;
         }
     }
 }

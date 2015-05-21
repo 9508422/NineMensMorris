@@ -20,6 +20,14 @@ public class Player {
         this.colour = name.substring(0, 1);
     }
 
+    public void addPiece(Piece piece) {
+        pieceSet.add(piece);
+    }
+
+    public boolean hasPiece(Piece piece) {
+        return pieceSet.contains(piece);
+    }
+
     public Place place(Spot dest) {
         for (Piece piece : pieceSet) {
             if (piece.getSpot() == null) {
@@ -41,8 +49,8 @@ public class Player {
         return new Slide(this, source, dest);
     }
 
-    public Hop hop(Spot source, Spot dest) {
-        return new Hop(this, source, dest);
+    public Fly fly(Spot source, Spot dest) {
+        return new Fly(this, source, dest);
     }
 
     public boolean allPiecesPlaced() {

@@ -7,6 +7,5 @@ public class Remove extends Move {
     public Remove(Player player, Piece piece, Spot spot) {
         super(player, piece, spot, null);
         piece.getPlayer().removePiece(piece);
-        piece.setPlayer(null);
     }
 }
