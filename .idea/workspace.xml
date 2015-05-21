@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a27de142-6aa2-4a72-ae1d-386969afbfb9" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\Users\Rhys\Documents\GitHub\NineMensMorris\src\com\rhys\ninemensmorris\Model\Hop.java" afterPath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Model/Fly.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Model/Board.class" afterPath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Model/Board.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/View/Display.class" afterPath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/View/Display.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Controller/Game.class" afterPath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Controller/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Model/Move.class" afterPath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Model/Move.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/NineMensMorris_jar/NineMensMorris.jar" afterPath="$PROJECT_DIR$/out/artifacts/NineMensMorris_jar/NineMensMorris.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Model/Player.class" afterPath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Model/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Model/Remove.class" afterPath="$PROJECT_DIR$/out/production/NineMensMorris/com/rhys/ninemensmorris/Model/Remove.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/View/Display.java" afterPath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/View/Display.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Controller/Game.java" afterPath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Controller/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Model/Move.java" afterPath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Model/Move.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Model/Player.java" afterPath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Model/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Model/Remove.java" afterPath="$PROJECT_DIR$/src/com/rhys/ninemensmorris/Model/Remove.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="a27de142-6aa2-4a72-ae1d-386969afbfb9" name="Default" comment="" />
     <ignored path="NineMensMorris.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
