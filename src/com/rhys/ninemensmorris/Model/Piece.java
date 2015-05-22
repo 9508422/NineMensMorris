@@ -4,8 +4,8 @@ package com.rhys.ninemensmorris.Model;
  * Created by Rhys on 14/05/2015.
  */
 public class Piece {
-    private Spot spot;
     private final Player player;
+    private Spot spot;
 
     public Piece(Player player) {
         this.player = player;

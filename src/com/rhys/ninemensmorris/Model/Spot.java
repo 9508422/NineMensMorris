@@ -8,8 +8,8 @@ import java.util.Set;
  * Created by Rhys on 14/05/2015.
  */
 public class Spot {
-    private Piece piece;
     private final Set<Spot> neighbours;
+    private Piece piece;
 
     public Spot() {
         this.piece = null;
