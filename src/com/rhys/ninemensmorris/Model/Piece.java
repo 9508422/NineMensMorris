@@ -54,7 +54,7 @@ public class Piece {
     }
 
     public boolean slide(Spot dest) {
-        if (spot.hasNeighbour(dest)) {
+        if (spot.hasNeighbour(dest) && !dest.hasPiece()) {
             spot.removePiece();
             spot = dest;
             spot.setPiece(this);
@@ -65,7 +65,7 @@ public class Piece {
     }
 
     public boolean fly(Spot dest) {
-        if (spot.hasPiece()) {
+        if (!dest.hasPiece()) {
             spot.removePiece();
             spot = dest;
             spot.setPiece(this);

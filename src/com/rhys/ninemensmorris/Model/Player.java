@@ -42,11 +42,11 @@ public abstract class Player {
     }
 
     public boolean slide(Slide slide, Spot src, Spot dest) {
-        return src.hasPiece() && pieceSet.contains(src.getPiece()) && !dest.hasPiece() && slide.move(this, src, dest);
+        return src.hasPiece() && pieceSet.contains(src.getPiece()) && slide.move(this, src, dest);
     }
 
     public boolean fly(Fly fly, Spot src, Spot dest) {
-        return src.hasPiece() && pieceSet.contains(src.getPiece()) && !dest.hasPiece() && fly.move(this, src, dest);
+        return src.hasPiece() && pieceSet.contains(src.getPiece()) && fly.move(this, src, dest);
     }
 
     public boolean allPiecesPlaced() {
