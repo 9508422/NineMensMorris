@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by Rhys on 14/05/2015.
  */
 public abstract class Player {
-    private final Set<Piece> pieceSet;
+    final Set<Piece> pieceSet;
     private final String name;
     private final String colour;
 
@@ -28,26 +28,13 @@ public abstract class Player {
         pieceSet.remove(piece);
     }
 
-    public boolean place(Place place, Spot dest) {
-        for (Piece piece : pieceSet) {
-            if (piece.getSpot() == null) {
-                return place.move(this, piece, dest);
-            }
-        }
-        return false;
-    }
+    public abstract boolean place(Place place, Spot dest);
 
-    public boolean remove(Remove remove, Spot spot) {
-        return spot.hasPiece() && !pieceSet.contains(spot.getPiece()) && remove.move(this, spot);
-    }
+    public abstract boolean remove(Remove remove, Spot spot);
 
-    public boolean slide(Slide slide, Spot src, Spot dest) {
-        return src.hasPiece() && pieceSet.contains(src.getPiece()) && slide.move(this, src, dest);
-    }
+    public abstract boolean slide(Slide slide, Spot src, Spot dest);
 
-    public boolean fly(Fly fly, Spot src, Spot dest) {
-        return src.hasPiece() && pieceSet.contains(src.getPiece()) && fly.move(this, src, dest);
-    }
+    public abstract boolean fly(Fly fly, Spot src, Spot dest);
 
     public boolean allPiecesPlaced() {
         for (Piece piece : pieceSet) {

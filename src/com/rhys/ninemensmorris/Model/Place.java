@@ -4,13 +4,11 @@ package com.rhys.ninemensmorris.Model;
  * Created by Rhys on 14/05/2015.
  */
 public class Place implements Move {
-
     private Player player;
     private Piece piece;
     private Spot src;
     private Spot dest;
 
-    //@Override
     public boolean move(Player player, Piece piece, Spot dest) {
         if (piece.place(dest)) {
             this.player = player;

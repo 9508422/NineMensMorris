@@ -153,8 +153,6 @@ public class Game {
                             output = "Fly failed";
                         }
                         break;
-                    case STATE_COMPLETE:
-                        break;
                 }
 
                 return output;

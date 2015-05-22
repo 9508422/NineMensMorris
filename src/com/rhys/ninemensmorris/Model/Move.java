@@ -5,8 +5,6 @@ package com.rhys.ninemensmorris.Model;
  */
 public interface Move {
 
-    // --Commented out by Inspection (23/05/2015 00:50):boolean move(Player player, Piece piece, Spot src, Spot dest);
-
     void undo();
 
     Player getPlayer();
