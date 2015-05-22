@@ -39,17 +39,7 @@ public class Place implements Move {
     }
 
     @Override
-    public Piece getPiece() {
-        return piece;
-    }
-
-    @Override
     public Spot getDest() {
         return dest;
-    }
-
-    @Override
-    public Spot getSrc() {
-        return src;
     }
 }

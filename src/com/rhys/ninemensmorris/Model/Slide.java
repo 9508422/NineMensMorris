@@ -9,7 +9,7 @@ public class Slide implements Move {
     private Spot src;
     private Spot dest;
 
-    public boolean move (Player player, Spot src, Spot dest) {
+    public boolean move(Player player, Spot src, Spot dest) {
         return move(player, src.getPiece(), src, dest);
     }
 
@@ -39,17 +39,7 @@ public class Slide implements Move {
     }
 
     @Override
-    public Piece getPiece() {
-        return piece;
-    }
-
-    @Override
     public Spot getDest() {
         return dest;
-    }
-
-    @Override
-    public Spot getSrc() {
-        return src;
     }
 }

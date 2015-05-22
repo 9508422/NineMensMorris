@@ -11,9 +11,5 @@ public interface Move {
 
     Player getPlayer();
 
-    Piece getPiece();
-
     Spot getDest();
-
-    Spot getSrc();
 }

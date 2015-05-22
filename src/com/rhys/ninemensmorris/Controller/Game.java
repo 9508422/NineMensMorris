@@ -34,8 +34,10 @@ public class Game {
         return gameState;
     }
 
-    private void setGameState() {
-        if (getOtherPlayer().allPiecesPlaced()) {
+    private void setGameState(String destStr) {
+        if (board.wasMillCreated(board.getSpot(destStr))) {
+            gameState = STATE_REMOVE;
+        } else if (getOtherPlayer().allPiecesPlaced()) {
             if (getOtherPlayer().threePiecesLeft()) {
                 gameState = STATE_FLY;
             } else if (!getOtherPlayer().hasLegalMove() || getOtherPlayer().twoPiecesLeft()) {
@@ -48,13 +50,11 @@ public class Game {
         }
     }
 
-    private void setGameState(String destStr) {
-        if (board.wasMillCreated(board.getSpot(destStr))) {
-            gameState = STATE_REMOVE;
-        } else if (getOtherPlayer().allPiecesPlaced()) {
+    private void setGameState() {
+        if (getOtherPlayer().allPiecesPlaced()) {
             if (getOtherPlayer().threePiecesLeft()) {
                 gameState = STATE_FLY;
-            } else if (getOtherPlayer().twoPiecesLeft()) {
+            } else if (!getOtherPlayer().hasLegalMove() || getOtherPlayer().twoPiecesLeft()) {
                 gameState = STATE_COMPLETE;
             } else {
                 gameState = STATE_SLIDE;
@@ -156,7 +156,7 @@ public class Game {
                     case STATE_COMPLETE:
                         break;
                 }
-                
+
                 return output;
             } else {
                 return "Destination spot doesn't exist!";
