@@ -9,11 +9,13 @@ import java.util.Set;
  */
 public class Spot {
     private final Set<Spot> neighbours;
+    private final String coord;
     private Piece piece;
 
-    public Spot() {
+    public Spot(String coord) {
         this.piece = null;
         this.neighbours = new HashSet<Spot>();
+        this.coord = coord;
     }
 
     public Piece getPiece() {
@@ -24,16 +26,28 @@ public class Spot {
         this.piece = piece;
     }
 
-    public void setNeighbours(Spot[] neighbours) {
-        Collections.addAll(this.neighbours, neighbours);
-    }
-
     public boolean hasNeighbour(Spot neighbour) {
         return neighbours.contains(neighbour);
     }
 
     public boolean hasPiece() {
         return !(piece == null);
+    }
+
+    public void removePiece() {
+        piece = null;
+    }
+
+    public String getCoord() {
+        return coord;
+    }
+
+    public Set<Spot> getNeighbours() {
+        return neighbours;
+    }
+
+    public void setNeighbours(Spot[] neighbours) {
+        Collections.addAll(this.neighbours, neighbours);
     }
 
     @Override

@@ -17,16 +17,16 @@ public class Board {
     public Board() {
         spotMap = new HashMap<String, Spot>();
         possibleSpots = new String[]{
-                "a7",          "d7",          "g7",
-                     "b6",     "d6",     "f6",
-                          "c5","d5","e5",
-                "a4","b4","c4",     "e4","f4","g4",
-                          "c3","d3","e3",
-                     "b2",     "d2",     "f2",
-                "a1",          "d1",          "g1"
+                "a7",             "d7",             "g7",
+                      "b6",       "d6",       "f6",
+                            "c5", "d5", "e5",
+                "a4", "b4", "c4",       "e4", "f4", "g4",
+                            "c3", "d3", "e3",
+                      "b2",       "d2",       "f2",
+                "a1",             "d1",             "g1"
         };
         for (String coord : possibleSpots) {
-            spotMap.put(coord, new Spot());
+            spotMap.put(coord, new Spot(coord));
         }
 
         getSpot("a1").setNeighbours(new Spot[]{getSpot("a4"), getSpot("d1")});

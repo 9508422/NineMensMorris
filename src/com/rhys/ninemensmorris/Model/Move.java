@@ -3,7 +3,7 @@ package com.rhys.ninemensmorris.Model;
 /**
  * Created by Rhys on 14/05/2015.
  */
-public class Move {
+public abstract class Move {
     private final Player player;
     private final Piece piece;
     private final Spot source;
@@ -14,29 +14,23 @@ public class Move {
         this.piece = piece;
         this.source = source;
         this.dest = dest;
-        this.piece.setSpot(this.dest);
-        if (this.source != null) {
-            this.source.setPiece(null);
-        }
-        if (this.dest != null) {
-            this.dest.setPiece(this.piece);
-        }
     }
 
-    public void undo() {
-        piece.setSpot(source);
-        if (!player.hasPiece(piece)) {
-            piece.getPlayer().addPiece(piece);
-        }
-        if (dest != null) {
-            dest.setPiece(null);
-        }
-        if (source != null) {
-            source.setPiece(piece);
-        }
-    }
+    public abstract void undo();
 
     public Player getPlayer() {
         return player;
+    }
+
+    Piece getPiece() {
+        return piece;
+    }
+
+    public Spot getDest() {
+        return dest;
+    }
+
+    Spot getSource() {
+        return source;
     }
 }

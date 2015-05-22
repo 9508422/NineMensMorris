@@ -70,6 +70,17 @@ public class Player {
         return pieceSet.size() == 2;
     }
 
+    public boolean hasLegalMove() {
+        for (Piece piece : pieceSet) {
+            for (Spot spot : piece.getSpot().getNeighbours()) {
+                if (!spot.hasPiece()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String toString(String toggle) {
         if (toggle.equals("name")) {
             return name;

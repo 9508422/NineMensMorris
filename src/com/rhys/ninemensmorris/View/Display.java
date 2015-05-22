@@ -26,22 +26,22 @@ public class Display {
         String playerTwo = in.next().trim();
         Game game = new Game(board, playerOne, playerTwo);
 
-        while (game.getGameState() != 4) {
+        while (game.getGameState() != Game.STATE_COMPLETE) {
             drawBoard();
 
-            if (game.getGameState() == 0) {
-                System.out.print(game.getCurrentPlayer() + ", place piece (xy): ");
-            } else if (game.getGameState() == 1) {
-                System.out.print(game.getCurrentPlayer() + ", remove one of " + game.getOtherPlayer() + "'s pieces (xy): ");
-            } else if (game.getGameState() == 2) {
-                System.out.print(game.getCurrentPlayer() + ", slide one of your pieces (x1y1->x2y2): ");
-            } else if (game.getGameState() == 3) {
-                System.out.print(game.getCurrentPlayer() + ", fly one of your pieces (x1y1->x2y2): ");
+            if (game.getGameState() == Game.STATE_PLACE) {
+                System.out.print(game.getCurrentPlayer().toString("name") + ", place piece (xy): ");
+            } else if (game.getGameState() == Game.STATE_REMOVE) {
+                System.out.print(game.getCurrentPlayer().toString("name") + ", remove one of " + game.getOtherPlayer().toString("name") + "'s pieces (xy): ");
+            } else if (game.getGameState() == Game.STATE_SLIDE) {
+                System.out.print(game.getCurrentPlayer().toString("name") + ", slide one of your pieces (x1y1->x2y2): ");
+            } else if (game.getGameState() == Game.STATE_FLY) {
+                System.out.print(game.getCurrentPlayer().toString("name") + ", fly one of your pieces (x1y1->x2y2): ");
             }
 
             input = in.next().trim().toLowerCase();
             if (input.equals("stop")) {
-                System.out.println("GAME STOPPED!");
+                System.out.println("Game stopped by " + game.getCurrentPlayer().toString("name"));
                 in.close();
                 return;
             } else if (input.equals("undo")) {
@@ -56,7 +56,7 @@ public class Display {
             }
         }
         in.close();
-        System.out.println("GAME COMPLETE!");
+        System.out.println("Game complete! " + game.getOtherPlayer().toString("name") + " won!");
     }
 
     private void drawBoard() {

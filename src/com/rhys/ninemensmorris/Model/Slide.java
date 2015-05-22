@@ -6,5 +6,16 @@ package com.rhys.ninemensmorris.Model;
 public class Slide extends Move {
     public Slide(Player player, Spot source, Spot dest) {
         super(player, source.getPiece(), source, dest);
+
+        source.getPiece().setSpot(dest);
+        dest.setPiece(source.getPiece());
+        source.removePiece();
+    }
+
+    @Override
+    public void undo() {
+        super.getSource().setPiece(super.getPiece());
+        super.getDest().removePiece();
+        super.getPiece().setSpot(super.getSource());
     }
 }

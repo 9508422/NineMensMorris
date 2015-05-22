@@ -24,6 +24,10 @@ public class Piece {
         this.spot = spot;
     }
 
+    public void removeSpot() {
+        spot = null;
+    }
+
     @Override
     public String toString() {
         return player.toString("colour");
