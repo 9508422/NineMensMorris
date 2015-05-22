@@ -24,16 +24,48 @@ public class Piece {
         this.spot = spot;
     }
 
-    public void removeSpot() {
-        spot = null;
-    }
-
     @Override
     public String toString() {
         return player.toString("colour");
     }
 
     public boolean equals(Piece piece) {
-        return this.player.equals(piece.player);
+        return player.equals(piece.getPlayer());
+    }
+
+    public boolean place(Spot dest) {
+        if (!dest.hasPiece()) {
+            dest.setPiece(this);
+            spot = dest;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean remove() {
+        if (spot != null) {
+            spot.removePiece();
+            spot = null;
+        }
+        return true;
+    }
+
+    public boolean slide(Spot dest) {
+        if (spot.hasNeighbour(dest)) {
+            spot.removePiece();
+            spot = dest;
+            spot.setPiece(this);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean fly(Spot dest) {
+        spot.removePiece();
+        spot = dest;
+        spot.setPiece(this);
+        return true;
     }
 }

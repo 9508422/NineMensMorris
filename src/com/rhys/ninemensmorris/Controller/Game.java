@@ -1,9 +1,6 @@
 package com.rhys.ninemensmorris.Controller;
 
-import com.rhys.ninemensmorris.Model.Board;
-import com.rhys.ninemensmorris.Model.Human;
-import com.rhys.ninemensmorris.Model.Move;
-import com.rhys.ninemensmorris.Model.Player;
+import com.rhys.ninemensmorris.Model.*;
 
 import java.util.Stack;
 
@@ -37,13 +34,27 @@ public class Game {
         return gameState;
     }
 
+    private void setGameState() {
+        if (getOtherPlayer().allPiecesPlaced()) {
+            if (getOtherPlayer().threePiecesLeft()) {
+                gameState = STATE_FLY;
+            } else if (!getOtherPlayer().hasLegalMove() || getOtherPlayer().twoPiecesLeft()) {
+                gameState = STATE_COMPLETE;
+            } else {
+                gameState = STATE_SLIDE;
+            }
+        } else {
+            gameState = STATE_PLACE;
+        }
+    }
+
     private void setGameState(String destStr) {
         if (board.wasMillCreated(board.getSpot(destStr))) {
             gameState = STATE_REMOVE;
-        } else if (currentPlayer.allPiecesPlaced()) {
-            if (currentPlayer.threePiecesLeft()) {
+        } else if (getOtherPlayer().allPiecesPlaced()) {
+            if (getOtherPlayer().threePiecesLeft()) {
                 gameState = STATE_FLY;
-            } else if (currentPlayer.twoPiecesLeft()) {
+            } else if (getOtherPlayer().twoPiecesLeft()) {
                 gameState = STATE_COMPLETE;
             } else {
                 gameState = STATE_SLIDE;
@@ -69,20 +80,6 @@ public class Game {
         }
     }
 
-    private void setGameState() {
-        if (currentPlayer.allPiecesPlaced()) {
-            if (currentPlayer.threePiecesLeft()) {
-                gameState = STATE_FLY;
-            } else if (currentPlayer.hasLegalMove() || currentPlayer.twoPiecesLeft()) {
-                gameState = STATE_COMPLETE;
-            } else {
-                gameState = STATE_SLIDE;
-            }
-        } else {
-            gameState = STATE_PLACE;
-        }
-    }
-
     public String move(String destStr) {
         if (gameState != STATE_SLIDE && gameState != STATE_FLY) {
             return move(null, destStr);
@@ -91,110 +88,81 @@ public class Game {
         }
     }
 
-    public String move(String sourceStr, String destStr) {
-        if (board.spotExists(sourceStr)) {
+    public String move(String srcStr, String destStr) {
+        if (board.spotExists(srcStr)) {
             if (board.spotExists(destStr)) {
-                String player = currentPlayer.toString("name");
-                if (gameState == STATE_PLACE) {
-                    return place(player, destStr);
-                } else if (gameState == STATE_REMOVE) {
-                    return remove(player, destStr);
-                } else if (gameState == STATE_SLIDE) {
-                    return slide(player, sourceStr, destStr);
-                } else if (gameState == STATE_FLY) {
-                    return fly(player, sourceStr, destStr);
-                } else {
-                    return "Game has left a valid state!";
+                String output = "";
+
+                switch (gameState) {
+                    case STATE_PLACE:
+                        Place place = new Place();
+                        if (currentPlayer.place(place, board.getSpot(destStr))) {
+                            moveStack.push(place);
+                            setGameState(destStr);
+                            output = "Piece placed on " + destStr;
+
+                            if (gameState == STATE_REMOVE) {
+                                output += "\nMill created!";
+                            } else {
+                                changeTurn();
+                            }
+                        } else {
+                            output = "Place failed";
+                        }
+                        break;
+                    case STATE_REMOVE:
+                        Remove remove = new Remove();
+                        if (currentPlayer.remove(remove, board.getSpot(destStr))) {
+                            moveStack.push(remove);
+                            setGameState();
+                            output = "Piece removed from " + destStr;
+                            changeTurn();
+                        } else {
+                            output = "Remove failed";
+                        }
+                        break;
+                    case STATE_SLIDE:
+                        Slide slide = new Slide();
+                        if (currentPlayer.slide(slide, board.getSpot(srcStr), board.getSpot(destStr))) {
+                            moveStack.push(slide);
+                            setGameState(destStr);
+                            output = "Piece slid from " + srcStr + " to " + destStr;
+
+                            if (gameState == STATE_REMOVE) {
+                                output += "\nMill created!";
+                            } else {
+                                changeTurn();
+                            }
+                        } else {
+                            output = "Slide failed";
+                        }
+                        break;
+                    case STATE_FLY:
+                        Fly fly = new Fly();
+                        if (currentPlayer.fly(fly, board.getSpot(srcStr), board.getSpot(destStr))) {
+                            moveStack.push(fly);
+                            setGameState(destStr);
+                            output = "Piece flew from " + srcStr + " to " + destStr;
+
+                            if (gameState == STATE_REMOVE) {
+                                output += "\nMill created!";
+                            } else {
+                                changeTurn();
+                            }
+                        } else {
+                            output = "Fly failed";
+                        }
+                        break;
+                    case STATE_COMPLETE:
+                        break;
                 }
+                
+                return output;
             } else {
                 return "Destination spot doesn't exist!";
             }
         } else {
             return "Source spot doesn't exist!";
-        }
-    }
-
-    private String place(String player, String destStr) {
-        if (!board.getSpot(destStr).hasPiece()) {
-            moveStack.push(currentPlayer.place(board.getSpot(destStr)));
-            setGameState(destStr);
-
-            if (gameState == STATE_REMOVE) {
-                return player + " placed a piece on " + destStr + "\nMill created!";
-            } else {
-                changeTurn();
-                return player + " placed a piece on " + destStr;
-            }
-        } else {
-            return "Piece already located on: " + destStr;
-        }
-    }
-
-    private String remove(String player, String spotStr) {
-        if (board.getSpot(spotStr).hasPiece()) {
-            if (!currentPlayer.hasPiece(board.getSpot(spotStr).getPiece())) {
-                moveStack.push(currentPlayer.remove(board.getSpot(spotStr)));
-                changeTurn();
-                setGameState();
-
-                return player + " removed a piece on " + spotStr;
-            } else {
-                return "You cannot remove your own piece!";
-            }
-        } else {
-            return "There is no piece located on " + spotStr;
-        }
-    }
-
-    private String slide(String player, String sourceStr, String destStr) {
-        if (board.getSpot(sourceStr).hasPiece()) {
-            if (currentPlayer.hasPiece(board.getSpot(sourceStr).getPiece())) {
-                if (!board.getSpot(destStr).hasPiece()) {
-                    if (board.getSpot(sourceStr).hasNeighbour(board.getSpot(destStr))) {
-                        moveStack.push(currentPlayer.slide(board.getSpot(sourceStr), board.getSpot(destStr)));
-                        setGameState(destStr);
-
-                        if (gameState == STATE_REMOVE) {
-                            return player + " slid a piece from " + sourceStr + " to " + destStr + "\nMill created, remove opponents piece!";
-                        } else {
-                            changeTurn();
-                            return player + " slid a piece from " + sourceStr + " to " + destStr;
-                        }
-                    } else {
-                        return destStr + " is not a neighbour of " + sourceStr;
-                    }
-                } else {
-                    return "There is already a piece on " + destStr;
-                }
-            } else {
-                return "That is not your piece to move!";
-            }
-        } else {
-            return "There is no piece on " + sourceStr;
-        }
-    }
-
-    private String fly(String player, String sourceStr, String destStr) {
-        if (board.getSpot(sourceStr).hasPiece()) {
-            if (currentPlayer.hasPiece(board.getSpot(sourceStr).getPiece())) {
-                if (!board.getSpot(destStr).hasPiece()) {
-                    moveStack.push(currentPlayer.fly(board.getSpot(sourceStr), board.getSpot(destStr)));
-                    setGameState(destStr);
-
-                    if (gameState == STATE_REMOVE) {
-                        return player + " flew a piece from " + sourceStr + " to " + destStr + "\nMill created, remove opponents piece!";
-                    } else {
-                        changeTurn();
-                        return player + " flew a piece from " + sourceStr + " to " + destStr;
-                    }
-                } else {
-                    return "There is already a piece on " + destStr;
-                }
-            } else {
-                return "That is not your piece to move!";
-            }
-        } else {
-            return "There is no piece on " + sourceStr;
         }
     }
 

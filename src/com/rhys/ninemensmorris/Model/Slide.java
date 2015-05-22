@@ -3,19 +3,53 @@ package com.rhys.ninemensmorris.Model;
 /**
  * Created by Rhys on 20/05/2015.
  */
-public class Slide extends Move {
-    public Slide(Player player, Spot source, Spot dest) {
-        super(player, source.getPiece(), source, dest);
+public class Slide implements Move {
+    private Player player;
+    private Piece piece;
+    private Spot src;
+    private Spot dest;
 
-        source.getPiece().setSpot(dest);
-        dest.setPiece(source.getPiece());
-        source.removePiece();
+    public boolean move (Player player, Spot src, Spot dest) {
+        return move(player, src.getPiece(), src, dest);
+    }
+
+    @Override
+    public boolean move(Player player, Piece piece, Spot src, Spot dest) {
+        if (piece.slide(dest)) {
+            this.player = player;
+            this.piece = piece;
+            this.src = src;
+            this.dest = dest;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public void undo() {
-        super.getSource().setPiece(super.getPiece());
-        super.getDest().removePiece();
-        super.getPiece().setSpot(super.getSource());
+        src.setPiece(piece);
+        dest.removePiece();
+        piece.setSpot(src);
+    }
+
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
+
+    @Override
+    public Piece getPiece() {
+        return piece;
+    }
+
+    @Override
+    public Spot getDest() {
+        return dest;
+    }
+
+    @Override
+    public Spot getSrc() {
+        return src;
     }
 }

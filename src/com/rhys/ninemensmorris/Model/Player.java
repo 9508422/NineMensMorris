@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Created by Rhys on 14/05/2015.
  */
-public class Player {
+public abstract class Player {
     private final Set<Piece> pieceSet;
     private final String name;
     private final String colour;
@@ -28,29 +28,29 @@ public class Player {
         return pieceSet.contains(piece);
     }
 
-    public Place place(Spot dest) {
-        for (Piece piece : pieceSet) {
-            if (piece.getSpot() == null) {
-                return new Place(this, piece, dest);
-            }
-        }
-        return null;
-    }
-
     public void removePiece(Piece piece) {
         pieceSet.remove(piece);
     }
 
-    public Remove remove(Spot spot) {
-        return new Remove(this, spot.getPiece(), spot);
+    public boolean place(Place place, Spot dest) {
+        for (Piece piece : pieceSet) {
+            if (piece.getSpot() == null) {
+                return place.move(this, piece, dest);
+            }
+        }
+        return false;
     }
 
-    public Slide slide(Spot source, Spot dest) {
-        return new Slide(this, source, dest);
+    public boolean remove(Remove remove, Spot spot) {
+        return spot.hasPiece() && !pieceSet.contains(spot.getPiece()) && remove.move(this, spot);
     }
 
-    public Fly fly(Spot source, Spot dest) {
-        return new Fly(this, source, dest);
+    public boolean slide(Slide slide, Spot src, Spot dest) {
+        return src.hasPiece() && pieceSet.contains(src.getPiece()) && !dest.hasPiece() && slide.move(this, src, dest);
+    }
+
+    public boolean fly(Fly fly, Spot src, Spot dest) {
+        return src.hasPiece() && pieceSet.contains(src.getPiece()) && !dest.hasPiece() && fly.move(this, src, dest);
     }
 
     public boolean allPiecesPlaced() {
