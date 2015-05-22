@@ -97,7 +97,7 @@ public class Board {
         return false;
     }
 
-    public boolean wasMillCreated(Spot dest) {
+    public boolean pieceInMill(Spot dest) {
         int count = 0;
         for (Set<Spot> mill : possibleMills) {
             if (mill.contains(dest)) {

@@ -35,7 +35,7 @@ public class Game {
     }
 
     private void setGameState(String destStr) {
-        if (board.wasMillCreated(board.getSpot(destStr))) {
+        if (board.pieceInMill(board.getSpot(destStr))) {
             gameState = STATE_REMOVE;
         } else if (getOtherPlayer().allPiecesPlaced()) {
             if (getOtherPlayer().threePiecesLeft()) {
