@@ -40,7 +40,7 @@ public class Game {
         } else if (getOtherPlayer().allPiecesPlaced()) {
             if (getOtherPlayer().threePiecesLeft()) {
                 gameState = STATE_FLY;
-            } else if (!getOtherPlayer().hasLegalMove() || getOtherPlayer().twoPiecesLeft()) {
+            } else if (getOtherPlayer().noLegalMove() || getOtherPlayer().twoPiecesLeft()) {
                 gameState = STATE_COMPLETE;
             } else {
                 gameState = STATE_SLIDE;
@@ -54,7 +54,7 @@ public class Game {
         if (getOtherPlayer().allPiecesPlaced()) {
             if (getOtherPlayer().threePiecesLeft()) {
                 gameState = STATE_FLY;
-            } else if (!getOtherPlayer().hasLegalMove() || getOtherPlayer().twoPiecesLeft()) {
+            } else if (getOtherPlayer().noLegalMove() || getOtherPlayer().twoPiecesLeft()) {
                 gameState = STATE_COMPLETE;
             } else {
                 gameState = STATE_SLIDE;

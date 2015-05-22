@@ -24,10 +24,6 @@ public abstract class Player {
         pieceSet.add(piece);
     }
 
-    public boolean hasPiece(Piece piece) {
-        return pieceSet.contains(piece);
-    }
-
     public void removePiece(Piece piece) {
         pieceSet.remove(piece);
     }
@@ -70,15 +66,15 @@ public abstract class Player {
         return pieceSet.size() == 2;
     }
 
-    public boolean hasLegalMove() {
+    public boolean noLegalMove() {
         for (Piece piece : pieceSet) {
             for (Spot spot : piece.getSpot().getNeighbours()) {
                 if (!spot.hasPiece()) {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public String toString(String toggle) {

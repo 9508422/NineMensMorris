@@ -47,8 +47,10 @@ public class Piece {
         if (spot != null) {
             spot.removePiece();
             spot = null;
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     public boolean slide(Spot dest) {
@@ -63,9 +65,13 @@ public class Piece {
     }
 
     public boolean fly(Spot dest) {
-        spot.removePiece();
-        spot = dest;
-        spot.setPiece(this);
-        return true;
+        if (spot.hasPiece()) {
+            spot.removePiece();
+            spot = dest;
+            spot.setPiece(this);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

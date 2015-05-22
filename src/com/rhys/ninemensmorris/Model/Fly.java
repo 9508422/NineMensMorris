@@ -9,15 +9,11 @@ public class Fly implements Move {
     private Spot src;
     private Spot dest;
 
+    //@Override
     public boolean move(Player player, Spot src, Spot dest) {
-        return move(player, src.getPiece(), src, dest);
-    }
-
-    @Override
-    public boolean move(Player player, Piece piece, Spot src, Spot dest) {
         if (piece.fly(dest)) {
             this.player = player;
-            this.piece = piece;
+            this.piece = src.getPiece();
             this.src = src;
             this.dest = dest;
             return true;

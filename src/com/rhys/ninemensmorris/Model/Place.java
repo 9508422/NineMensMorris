@@ -10,16 +10,12 @@ public class Place implements Move {
     private Spot src;
     private Spot dest;
 
+    //@Override
     public boolean move(Player player, Piece piece, Spot dest) {
-        return move(player, piece, null, dest);
-    }
-
-    @Override
-    public boolean move(Player player, Piece piece, Spot src, Spot dest) {
         if (piece.place(dest)) {
             this.player = player;
             this.piece = piece;
-            this.src = src;
+            this.src = null;
             this.dest = dest;
             return true;
         } else {
