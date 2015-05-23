@@ -10,9 +10,10 @@ public class Fly implements Move {
     private Spot dest;
 
     public boolean move(Player player, Spot src, Spot dest) {
-        if (src.getPiece().fly(dest)) {
+        Piece piece = src.getPiece();
+        if (piece.fly(dest)) {
             this.player = player;
-            this.piece = src.getPiece();
+            this.piece = piece;
             this.src = src;
             this.dest = dest;
             return true;
