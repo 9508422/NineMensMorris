@@ -10,7 +10,7 @@ public class Remove implements Move {
     private Spot dest;
 
     public boolean move(Player player, Spot src) {
-        if (piece.remove()) {
+        if (src.getPiece().remove()) {
             this.player = player;
             this.piece = src.getPiece();
             this.src = src;

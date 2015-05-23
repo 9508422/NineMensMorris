@@ -10,7 +10,7 @@ public class Slide implements Move {
     private Spot dest;
 
     public boolean move(Player player, Spot src, Spot dest) {
-        if (piece.slide(dest)) {
+        if (src.getPiece().slide(dest)) {
             this.player = player;
             this.piece = src.getPiece();
             this.src = src;
