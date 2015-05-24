@@ -58,6 +58,7 @@ public class Display {
                 }
             }
         }
+        
         in.close();
         System.out.println("Game complete! " + game.getOtherPlayer().toString("name") + " won!");
     }
