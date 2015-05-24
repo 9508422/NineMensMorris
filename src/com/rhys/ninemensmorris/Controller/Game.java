@@ -1,6 +1,7 @@
 package com.rhys.ninemensmorris.Controller;
 
 import com.rhys.ninemensmorris.Model.*;
+import com.rhys.ninemensmorris.View.Display;
 
 import java.util.Stack;
 
@@ -14,20 +15,22 @@ public class Game {
     public static final int STATE_FLY = 3;
     public static final int STATE_COMPLETE = 4;
 
-    private final Stack<Move> moveStack;
-    private final Player playerOne;
-    private final Player playerTwo;
     private final Board board;
+    private final Stack<Move> moveStack;
+
+    private Player playerOne;
+    private Player playerTwo;
     private Player currentPlayer;
+
     private int gameState;
 
-    public Game(Board board, String playerOne, String playerTwo) {
+    public Game() {
         this.moveStack = new Stack<Move>();
-        this.playerOne = new Human(playerOne);
-        this.playerTwo = new Human(playerTwo);
-        this.currentPlayer = this.playerOne;
-        this.board = board;
-        setGameState();
+        this.board = new Board();
+        this.playerOne = null;
+        this.playerTwo = null;
+        this.currentPlayer = null;
+        new Display(this, board);
     }
 
     public int getGameState() {
@@ -68,6 +71,19 @@ public class Game {
         } else {
             return playerOne;
         }
+    }
+
+    public void addPlayer(String name) {
+        if (playerOne == null) {
+            playerOne = new Human(name);
+        } else if (playerTwo == null) {
+            playerTwo = new Human(name);
+        }
+    }
+
+    public void start() {
+        currentPlayer = playerOne;
+        setGameState();
     }
 
     public String move(String destStr) {

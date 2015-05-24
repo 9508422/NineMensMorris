@@ -9,10 +9,13 @@ import java.util.Scanner;
  * Created by Rhys on 14/05/2015.
  */
 public class Display {
+    private final Game game;
     private final Board board;
 
-    public Display() {
-        this.board = new Board();
+    public Display(Game game, Board board) {
+        this.game = game;
+        this.board = board;
+        play();
     }
 
     public void play() {
@@ -20,10 +23,11 @@ public class Display {
         String input;
 
         System.out.print("Player one name: ");
-        String playerOne = in.next().trim();
+        game.addPlayer(in.next().trim());
         System.out.print("Player two name: ");
-        String playerTwo = in.next().trim();
-        Game game = new Game(board, playerOne, playerTwo);
+        game.addPlayer(in.next().trim());
+
+        game.start();
 
         while (game.getGameState() != Game.STATE_COMPLETE) {
             drawBoard();
