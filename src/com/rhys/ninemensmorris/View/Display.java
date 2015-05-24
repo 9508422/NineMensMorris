@@ -18,7 +18,7 @@ public class Display {
         play();
     }
 
-    public void play() {
+    private void play() {
         Scanner in = new Scanner(System.in);
         String input;
 
