@@ -7,32 +7,62 @@ public class Piece {
     private final Player player;
     private Spot spot;
 
+    /**
+     *
+     * @param player
+     */
     public Piece(Player player) {
         this.player = player;
         this.spot = null;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @return
+     */
     public Spot getSpot() {
         return spot;
     }
 
+    /**
+     *
+     * @param spot
+     */
     public void setSpot(Spot spot) {
         this.spot = spot;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return player.toString("colour");
     }
 
+    /**
+     *
+     * @param piece
+     * @return
+     */
     public boolean equals(Piece piece) {
         return player.equals(piece.getPlayer());
     }
 
+    /**
+     *
+     * @param dest
+     * @return
+     */
     public boolean place(Spot dest) {
         if (!dest.hasPiece()) {
             dest.setPiece(this);
@@ -43,6 +73,10 @@ public class Piece {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean remove() {
         if (spot != null) {
             spot.removePiece();
@@ -53,6 +87,11 @@ public class Piece {
         }
     }
 
+    /**
+     *
+     * @param dest
+     * @return
+     */
     public boolean slide(Spot dest) {
         if (spot.hasNeighbour(dest) && !dest.hasPiece()) {
             spot.removePiece();
@@ -64,6 +103,11 @@ public class Piece {
         }
     }
 
+    /**
+     *
+     * @param dest
+     * @return
+     */
     public boolean fly(Spot dest) {
         if (!dest.hasPiece()) {
             spot.removePiece();

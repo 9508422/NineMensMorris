@@ -12,44 +12,84 @@ public class Spot {
     private final String coord;
     private Piece piece;
 
+    /**
+     *
+     * @param coord
+     */
     public Spot(String coord) {
         this.piece = null;
         this.neighbours = new HashSet<Spot>();
         this.coord = coord;
     }
 
+    /**
+     *
+     * @return
+     */
     public Piece getPiece() {
         return piece;
     }
 
+    /**
+     *
+     * @param piece
+     */
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
 
+    /**
+     *
+     * @param neighbour
+     * @return
+     */
     public boolean hasNeighbour(Spot neighbour) {
         return neighbours.contains(neighbour);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean hasPiece() {
         return !(piece == null);
     }
 
+    /**
+     *
+     */
     public void removePiece() {
         piece = null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCoord() {
         return coord;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set<Spot> getNeighbours() {
         return neighbours;
     }
 
+    /**
+     *
+     * @param neighbours
+     */
     public void setNeighbours(Spot[] neighbours) {
         Collections.addAll(this.neighbours, neighbours);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         if (hasPiece()) {

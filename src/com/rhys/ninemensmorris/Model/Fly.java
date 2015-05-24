@@ -9,6 +9,13 @@ public class Fly implements Move {
     private Spot src;
     private Spot dest;
 
+    /**
+     *
+     * @param player
+     * @param src
+     * @param dest
+     * @return
+     */
     public boolean move(Player player, Spot src, Spot dest) {
         Piece piece = src.getPiece();
         if (piece.fly(dest)) {
@@ -22,6 +29,9 @@ public class Fly implements Move {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void undo() {
         src.setPiece(piece);
@@ -29,11 +39,19 @@ public class Fly implements Move {
         piece.setSpot(src);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Spot getDest() {
         return dest;

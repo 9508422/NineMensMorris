@@ -9,6 +9,12 @@ public class Remove implements Move {
     private Spot src;
     private Spot dest;
 
+    /**
+     *
+     * @param player
+     * @param src
+     * @return
+     */
     public boolean move(Player player, Spot src) {
         Piece piece = src.getPiece();
         if (piece.remove()) {
@@ -23,6 +29,9 @@ public class Remove implements Move {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void undo() {
         piece.getPlayer().addPiece(piece);
@@ -30,11 +39,19 @@ public class Remove implements Move {
         src.setPiece(piece);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Spot getDest() {
         return dest;

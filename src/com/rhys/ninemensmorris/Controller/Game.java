@@ -24,6 +24,9 @@ public class Game {
 
     private int gameState;
 
+    /**
+     *
+     */
     public Game() {
         this.moveStack = new Stack<Move>();
         this.board = new Board();
@@ -33,6 +36,10 @@ public class Game {
         new Display(this, board);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getGameState() {
         return gameState;
     }
@@ -53,18 +60,33 @@ public class Game {
         }
     }
 
+    /**
+     *
+     */
     private void setGameState() {
         setGameState("");
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     *
+     * @param player
+     */
     private void setCurrentPlayer(Player player) {
         currentPlayer = player;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getOtherPlayer() {
         if (currentPlayer.equals(playerOne)) {
             return playerTwo;
@@ -73,6 +95,10 @@ public class Game {
         }
     }
 
+    /**
+     *
+     * @param name
+     */
     public void addPlayer(String name) {
         if (playerOne == null) {
             playerOne = new Human(name);
@@ -81,11 +107,19 @@ public class Game {
         }
     }
 
+    /**
+     *
+     */
     public void start() {
         currentPlayer = playerOne;
         setGameState();
     }
 
+    /**
+     *
+     * @param destStr
+     * @return
+     */
     public String move(String destStr) {
         if (gameState != STATE_SLIDE && gameState != STATE_FLY) {
             return move(null, destStr);
@@ -94,6 +128,12 @@ public class Game {
         }
     }
 
+    /**
+     *
+     * @param srcStr
+     * @param destStr
+     * @return
+     */
     public String move(String srcStr, String destStr) {
         if (srcStr == null || board.hasSpot(srcStr)) {
             if (board.hasSpot(destStr)) {
@@ -170,6 +210,10 @@ public class Game {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String undo() {
         if (moveStack.size() > 0) {
             setCurrentPlayer(moveStack.peek().getPlayer());
@@ -186,6 +230,9 @@ public class Game {
         }
     }
 
+    /**
+     * 
+     */
     private void changeTurn() {
         if (currentPlayer.equals(playerOne)) {
             currentPlayer = playerTwo;

@@ -12,12 +12,20 @@ public class Display {
     private final Game game;
     private final Board board;
 
+    /**
+     *
+     * @param game
+     * @param board
+     */
     public Display(Game game, Board board) {
         this.game = game;
         this.board = board;
         play();
     }
 
+    /**
+     *
+     */
     private void play() {
         Scanner in = new Scanner(System.in);
         String input;
@@ -58,11 +66,14 @@ public class Display {
                 }
             }
         }
-        
+
         in.close();
         System.out.println("Game complete! " + game.getOtherPlayer().toString("name") + " won!");
     }
 
+    /**
+     *
+     */
     private void drawBoard() {
         System.out.println("7 " + board.getSpot("a7") + " - - " + board.getSpot("d7") + " - - " + board.getSpot("g7"));
         System.out.println("6 | " + board.getSpot("b6") + " - " + board.getSpot("d6") + " - " + board.getSpot("f6") +

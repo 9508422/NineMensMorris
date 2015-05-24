@@ -8,6 +8,12 @@ public class Human extends Player {
         super(name);
     }
 
+    /**
+     *
+     * @param place
+     * @param dest
+     * @return
+     */
     public boolean place(Place place, Spot dest) {
         for (Piece piece : pieceSet) {
             if (piece.getSpot() == null) {
@@ -17,14 +23,34 @@ public class Human extends Player {
         return false;
     }
 
+    /**
+     *
+     * @param remove
+     * @param spot
+     * @return
+     */
     public boolean remove(Remove remove, Spot spot) {
         return spot.hasPiece() && !pieceSet.contains(spot.getPiece()) && remove.move(this, spot);
     }
 
+    /**
+     *
+     * @param slide
+     * @param src
+     * @param dest
+     * @return
+     */
     public boolean slide(Slide slide, Spot src, Spot dest) {
         return src.hasPiece() && pieceSet.contains(src.getPiece()) && slide.move(this, src, dest);
     }
 
+    /**
+     *
+     * @param fly
+     * @param src
+     * @param dest
+     * @return
+     */
     public boolean fly(Fly fly, Spot src, Spot dest) {
         return src.hasPiece() && pieceSet.contains(src.getPiece()) && fly.move(this, src, dest);
     }

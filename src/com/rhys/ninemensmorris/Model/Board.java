@@ -12,6 +12,9 @@ public class Board {
     private final String[] possibleSpots;
     private final Spot[][] mills;
 
+    /**
+     *
+     */
     public Board() {
         spotMap = new HashMap<String, Spot>();
         possibleSpots = new String[]{
@@ -72,10 +75,20 @@ public class Board {
         };
     }
 
+    /**
+     *
+     * @param coord
+     * @return
+     */
     public Spot getSpot(String coord) {
         return spotMap.get(coord);
     }
 
+    /**
+     *
+     * @param coord
+     * @return
+     */
     public boolean hasSpot(String coord) {
         for (String possibleSpot : possibleSpots) {
             if (possibleSpot.equals(coord)) {
@@ -85,6 +98,11 @@ public class Board {
         return false;
     }
 
+    /**
+     *
+     * @param dest
+     * @return
+     */
     public boolean pieceInMill(Spot dest) {
         int count = 0;
         for (Spot[] mill : mills) {
