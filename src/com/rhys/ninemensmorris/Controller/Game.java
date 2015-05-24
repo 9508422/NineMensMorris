@@ -35,7 +35,7 @@ public class Game {
     }
 
     private void setGameState(String destStr) {
-        if (board.pieceInMill(board.getSpot(destStr))) {
+        if (board.hasSpot(destStr) && board.pieceInMill(board.getSpot(destStr))) {
             gameState = STATE_REMOVE;
         } else if (getOtherPlayer().allPiecesPlaced()) {
             if (getOtherPlayer().threePiecesLeft()) {
@@ -51,17 +51,7 @@ public class Game {
     }
 
     private void setGameState() {
-        if (getOtherPlayer().allPiecesPlaced()) {
-            if (getOtherPlayer().threePiecesLeft()) {
-                gameState = STATE_FLY;
-            } else if (getOtherPlayer().noLegalMove() || getOtherPlayer().twoPiecesLeft()) {
-                gameState = STATE_COMPLETE;
-            } else {
-                gameState = STATE_SLIDE;
-            }
-        } else {
-            gameState = STATE_PLACE;
-        }
+        setGameState("");
     }
 
     public Player getCurrentPlayer() {
@@ -89,8 +79,8 @@ public class Game {
     }
 
     public String move(String srcStr, String destStr) {
-        if (board.spotExists(srcStr)) {
-            if (board.spotExists(destStr)) {
+        if (srcStr == null || board.hasSpot(srcStr)) {
+            if (board.hasSpot(destStr)) {
                 String output = "";
 
                 switch (gameState) {
