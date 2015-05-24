@@ -13,10 +13,9 @@ public class Display {
 
     public Display() {
         this.board = new Board();
-        play();
     }
 
-    private void play() {
+    public void play() {
         Scanner in = new Scanner(System.in);
         String input;
 
