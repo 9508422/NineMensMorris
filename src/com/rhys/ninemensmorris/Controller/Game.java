@@ -42,22 +42,19 @@ public class Game {
     }
 
     /**
-     *
      * @param destStr
      */
     private void setGameState(String destStr) {
-        if (board.hasSpot(destStr) && board.pieceInMill(board.getSpot(destStr))) {
+        if (destStr != null && board.pieceInMill(board.getSpot(destStr))) {
             gameState = STATE_REMOVE;
-        } else if (getOtherPlayer().hasAllPiecesPlaced()) {
-            if (getOtherPlayer().hasThreePiecesLeft()) {
-                gameState = STATE_FLY;
-            } else if (getOtherPlayer().hasNoLegalMove() || getOtherPlayer().hasTwoPiecesLeft()) {
-                gameState = STATE_COMPLETE;
-            } else {
-                gameState = STATE_SLIDE;
-            }
-        } else {
+        } else if (!currentPlayer.hasAllPiecesPlaced()) {
             gameState = STATE_PLACE;
+        } else if (currentPlayer.hasThreePiecesLeft()) {
+            gameState = STATE_FLY;
+        } else if (currentPlayer.hasNoLegalMove() || currentPlayer.hasTwoPiecesLeft()) {
+            gameState = STATE_COMPLETE;
+        } else {
+            gameState = STATE_SLIDE;
         }
     }
 
@@ -65,7 +62,7 @@ public class Game {
      *
      */
     private void setGameState() {
-        setGameState("");
+        setGameState(null);
     }
 
     /**
@@ -151,15 +148,13 @@ public class Game {
         if (move != null) {
             moveStack.push(move);
             display.out("Move successful.\n");
-            if (gameState != STATE_REMOVE) {
-                setGameState(destStr);
-            } else {
-                setGameState();
-            }
-            if (gameState == STATE_REMOVE) {
+
+            if (board.pieceInMill(board.getSpot(destStr))) {
+                gameState = STATE_REMOVE;
                 display.out("Mill created!\n");
             } else {
                 changeTurn();
+                setGameState();
             }
         } else {
             display.out("Move failed, try again.\n");

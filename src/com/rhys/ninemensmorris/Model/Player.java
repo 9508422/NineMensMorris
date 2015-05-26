@@ -97,10 +97,14 @@ public abstract class Player {
      */
     public boolean hasNoLegalMove() {
         for (Piece piece : pieceSet) {
-            for (Spot spot : piece.getSpot().getNeighbours()) {
-                if (!spot.hasPiece()) {
-                    return false;
+            if (piece.hasSpot()) {
+                for (Spot spot : piece.getSpot().getNeighbours()) {
+                    if (!spot.hasPiece()) {
+                        return false;
+                    }
                 }
+            } else {
+                return false;
             }
         }
         return true;
