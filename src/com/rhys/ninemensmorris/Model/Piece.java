@@ -118,4 +118,12 @@ public class Piece {
             return false;
         }
     }
+
+    /**
+     *
+     * @return
+     */
+    public boolean hasSpot() {
+        return spot != null;
+    }
 }

@@ -13,14 +13,15 @@ public class Place implements Move {
      *
      * @param player
      * @param piece
+     * @param noSpot
      * @param dest
      * @return
      */
-    public boolean move(Player player, Piece piece, Spot dest) {
+    public boolean move(Player player, Piece piece, Spot noSpot, Spot dest) {
         if (piece.place(dest)) {
             this.player = player;
             this.piece = piece;
-            this.src = null;
+            this.src = noSpot;
             this.dest = dest;
             return true;
         } else {

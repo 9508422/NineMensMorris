@@ -1,80 +1,33 @@
 package com.rhys.ninemensmorris.View;
 
-import com.rhys.ninemensmorris.Controller.Game;
 import com.rhys.ninemensmorris.Model.Board;
-
-import java.util.Scanner;
 
 /**
  * Created by Rhys on 14/05/2015.
  */
 public class Display {
-    private final Game game;
     private final Board board;
 
     /**
      *
-     * @param game
      * @param board
      */
-    public Display(Game game, Board board) {
-        this.game = game;
+    public Display(Board board) {
         this.board = board;
-        play();
+    }
+
+    /**
+     *
+     * @param output
+     */
+    public void out(String output) {
+        System.out.print(output);
     }
 
     /**
      *
      */
-    private void play() {
-        Scanner in = new Scanner(System.in);
-        String input;
-
-        System.out.print("Player one name: ");
-        game.addPlayer(in.next().trim());
-        System.out.print("Player two name: ");
-        game.addPlayer(in.next().trim());
-
-        game.start();
-
-        while (game.getGameState() != Game.STATE_COMPLETE) {
-            drawBoard();
-
-            if (game.getGameState() == Game.STATE_PLACE) {
-                System.out.print(game.getCurrentPlayer().toString("name") + ", place piece (xy): ");
-            } else if (game.getGameState() == Game.STATE_REMOVE) {
-                System.out.print(game.getCurrentPlayer().toString("name") + ", remove one of " + game.getOtherPlayer().toString("name") + "'s pieces (xy): ");
-            } else if (game.getGameState() == Game.STATE_SLIDE) {
-                System.out.print(game.getCurrentPlayer().toString("name") + ", slide one of your pieces (x1y1->x2y2): ");
-            } else if (game.getGameState() == Game.STATE_FLY) {
-                System.out.print(game.getCurrentPlayer().toString("name") + ", fly one of your pieces (x1y1->x2y2): ");
-            }
-
-            input = in.next().trim().toLowerCase();
-            if (input.equals("stop")) {
-                System.out.println("Game stopped by " + game.getCurrentPlayer().toString("name"));
-                in.close();
-                return;
-            } else if (input.equals("undo")) {
-                System.out.println(game.undo());
-            } else {
-                if (input.length() > 2) {
-                    String[] str = input.split("->");
-                    System.out.println(game.move(str[0], str[1]));
-                } else {
-                    System.out.println(game.move(input));
-                }
-            }
-        }
-
-        in.close();
-        System.out.println("Game complete! " + game.getOtherPlayer().toString("name") + " won!");
-    }
-
-    /**
-     *
-     */
-    private void drawBoard() {
+    public void drawBoard() {
         System.out.println("7 " + board.getSpot("a7") + " - - " + board.getSpot("d7") + " - - " + board.getSpot("g7"));
         System.out.println("6 | " + board.getSpot("b6") + " - " + board.getSpot("d6") + " - " + board.getSpot("f6") +
                 " |");

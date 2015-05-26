@@ -12,16 +12,17 @@ public class Remove implements Move {
     /**
      *
      * @param player
+     * @param piece
+     * @param noSpot
      * @param src
      * @return
      */
-    public boolean move(Player player, Spot src) {
-        Piece piece = src.getPiece();
-        if (piece.remove()) {
+    public boolean move(Player player, Piece piece, Spot noSpot, Spot src) {
+        if (piece.getPlayer() != player && piece.remove()) {
             this.player = player;
             this.piece = piece;
             this.src = src;
-            this.dest = null;
+            this.dest = noSpot;
             this.piece.getPlayer().removePiece(this.piece);
             return true;
         } else {

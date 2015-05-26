@@ -17,9 +17,42 @@ public class Spot {
      * @param coord
      */
     public Spot(String coord) {
-        this.piece = null;
         this.neighbours = new HashSet<Spot>();
         this.coord = coord;
+        this.piece = null;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Set<Spot> getNeighbours() {
+        return neighbours;
+    }
+
+    /**
+     *
+     * @param neighbours
+     */
+    public void setNeighbours(Spot[] neighbours) {
+        Collections.addAll(this.neighbours, neighbours);
+    }
+
+    /**
+     *
+     * @param neighbour
+     * @return
+     */
+    public boolean hasNeighbour(Spot neighbour) {
+        return neighbours.contains(neighbour);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getCoord() {
+        return coord;
     }
 
     /**
@@ -40,15 +73,6 @@ public class Spot {
 
     /**
      *
-     * @param neighbour
-     * @return
-     */
-    public boolean hasNeighbour(Spot neighbour) {
-        return neighbours.contains(neighbour);
-    }
-
-    /**
-     *
      * @return
      */
     public boolean hasPiece() {
@@ -60,30 +84,6 @@ public class Spot {
      */
     public void removePiece() {
         piece = null;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getCoord() {
-        return coord;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Set<Spot> getNeighbours() {
-        return neighbours;
-    }
-
-    /**
-     *
-     * @param neighbours
-     */
-    public void setNeighbours(Spot[] neighbours) {
-        Collections.addAll(this.neighbours, neighbours);
     }
 
     /**

@@ -19,11 +19,11 @@ public class Board {
         spotMap = new HashMap<String, Spot>();
         possibleSpots = new String[]{
                 "a7",             "d7",             "g7",
-                      "b6",       "d6",       "f6",
-                            "c5", "d5", "e5",
+                "b6",       "d6",       "f6",
+                "c5", "d5", "e5",
                 "a4", "b4", "c4",       "e4", "f4", "g4",
-                            "c3", "d3", "e3",
-                      "b2",       "d2",       "f2",
+                "c3", "d3", "e3",
+                "b2",       "d2",       "f2",
                 "a1",             "d1",             "g1"
         };
         for (String coord : possibleSpots) {
@@ -96,6 +96,20 @@ public class Board {
             }
         }
         return false;
+    }
+
+    /**
+     *
+     * @param coords
+     * @return
+     */
+    public boolean hasSpots(String[] coords) {
+        for (String coord : coords) {
+            if (!hasSpot(coord)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

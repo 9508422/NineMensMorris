@@ -12,12 +12,12 @@ public class Slide implements Move {
     /**
      *
      * @param player
+     * @param piece
      * @param src
      * @param dest
      * @return
      */
-    public boolean move(Player player, Spot src, Spot dest) {
-        Piece piece = src.getPiece();
+    public boolean move(Player player, Piece piece, Spot src, Spot dest) {
         if (piece.slide(dest)) {
             this.player = player;
             this.piece = piece;

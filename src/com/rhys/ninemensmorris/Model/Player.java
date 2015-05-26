@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by Rhys on 14/05/2015.
  */
 public abstract class Player {
-    final Set<Piece> pieceSet;
+    private final Set<Piece> pieceSet;
     private final String name;
     private final String colour;
 
@@ -22,6 +22,28 @@ public abstract class Player {
         }
         this.name = name;
         this.colour = name.substring(0, 1);
+    }
+
+    /**
+     *
+     * @param gameState
+     * @param src
+     * @param dest
+     * @return
+     */
+    public abstract Move move(int gameState, Spot src, Spot dest);
+
+    /**
+     *
+     * @return
+     */
+    Piece getUnplacedPiece() {
+        for (Piece piece : pieceSet) {
+            if (!piece.hasSpot()) {
+                return piece;
+            }
+        }
+        return null;
     }
 
     /**
@@ -42,43 +64,9 @@ public abstract class Player {
 
     /**
      *
-     * @param place
-     * @param dest
      * @return
      */
-    public abstract boolean place(Place place, Spot dest);
-
-    /**
-     *
-     * @param remove
-     * @param spot
-     * @return
-     */
-    public abstract boolean remove(Remove remove, Spot spot);
-
-    /**
-     *
-     * @param slide
-     * @param src
-     * @param dest
-     * @return
-     */
-    public abstract boolean slide(Slide slide, Spot src, Spot dest);
-
-    /**
-     *
-     * @param fly
-     * @param src
-     * @param dest
-     * @return
-     */
-    public abstract boolean fly(Fly fly, Spot src, Spot dest);
-
-    /**
-     *
-     * @return
-     */
-    public boolean allPiecesPlaced() {
+    public boolean hasAllPiecesPlaced() {
         for (Piece piece : pieceSet) {
             if (piece.getSpot() == null) {
                 return false;
@@ -91,7 +79,7 @@ public abstract class Player {
      *
      * @return
      */
-    public boolean threePiecesLeft() {
+    public boolean hasThreePiecesLeft() {
         return pieceSet.size() == 3;
     }
 
@@ -99,7 +87,7 @@ public abstract class Player {
      *
      * @return
      */
-    public boolean twoPiecesLeft() {
+    public boolean hasTwoPiecesLeft() {
         return pieceSet.size() == 2;
     }
 
@@ -107,7 +95,7 @@ public abstract class Player {
      *
      * @return
      */
-    public boolean noLegalMove() {
+    public boolean hasNoLegalMove() {
         for (Piece piece : pieceSet) {
             for (Spot spot : piece.getSpot().getNeighbours()) {
                 if (!spot.hasPiece()) {

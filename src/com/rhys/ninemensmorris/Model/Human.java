@@ -1,5 +1,7 @@
 package com.rhys.ninemensmorris.Model;
 
+import com.rhys.ninemensmorris.Controller.Game;
+
 /**
  * Created by Rhys on 14/05/2015.
  */
@@ -10,48 +12,42 @@ public class Human extends Player {
 
     /**
      *
-     * @param place
+     * @param gameState
+     * @param src
      * @param dest
      * @return
      */
-    public boolean place(Place place, Spot dest) {
-        for (Piece piece : pieceSet) {
-            if (piece.getSpot() == null) {
-                return place.move(this, piece, dest);
-            }
+    public Move move(int gameState, Spot src, Spot dest) {
+        Move move = null;
+        Move temp;
+
+        switch (gameState) {
+            case Game.STATE_PLACE:
+                temp = new Place();
+                if (temp.move(this, getUnplacedPiece(), src, dest)) {
+                    move = temp;
+                }
+                break;
+            case Game.STATE_REMOVE:
+                temp = new Remove();
+                if (temp.move(this, dest.getPiece(), src, dest)) {
+                    move = temp;
+                }
+                break;
+            case Game.STATE_SLIDE:
+                temp = new Slide();
+                if (temp.move(this, src.getPiece(), src, dest)) {
+                    move = temp;
+                }
+                break;
+            case Game.STATE_FLY:
+                temp = new Fly();
+                if (temp.move(this, src.getPiece(), src, dest)) {
+                    move = temp;
+                }
+                break;
         }
-        return false;
-    }
 
-    /**
-     *
-     * @param remove
-     * @param spot
-     * @return
-     */
-    public boolean remove(Remove remove, Spot spot) {
-        return spot.hasPiece() && !pieceSet.contains(spot.getPiece()) && remove.move(this, spot);
-    }
-
-    /**
-     *
-     * @param slide
-     * @param src
-     * @param dest
-     * @return
-     */
-    public boolean slide(Slide slide, Spot src, Spot dest) {
-        return src.hasPiece() && pieceSet.contains(src.getPiece()) && slide.move(this, src, dest);
-    }
-
-    /**
-     *
-     * @param fly
-     * @param src
-     * @param dest
-     * @return
-     */
-    public boolean fly(Fly fly, Spot src, Spot dest) {
-        return src.hasPiece() && pieceSet.contains(src.getPiece()) && fly.move(this, src, dest);
+        return move;
     }
 }
