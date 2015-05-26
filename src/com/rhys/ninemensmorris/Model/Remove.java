@@ -17,6 +17,7 @@ public class Remove implements Move {
      * @param src
      * @return
      */
+    @Override
     public boolean move(Player player, Piece piece, Spot noSpot, Spot src) {
         if (piece.getPlayer() != player && piece.remove()) {
             this.player = player;

@@ -73,14 +73,6 @@ public class Spot {
 
     /**
      *
-     * @return
-     */
-    public boolean hasPiece() {
-        return !(piece == null);
-    }
-
-    /**
-     *
      */
     public void removePiece() {
         piece = null;
@@ -97,5 +89,13 @@ public class Spot {
         } else {
             return "O";
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean hasPiece() {
+        return !(piece == null);
     }
 }

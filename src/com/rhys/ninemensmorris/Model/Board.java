@@ -18,13 +18,15 @@ public class Board {
     public Board() {
         spotMap = new HashMap<String, Spot>();
         possibleSpots = new String[]{
+                //@formatter:off
                 "a7",             "d7",             "g7",
-                "b6",       "d6",       "f6",
-                "c5", "d5", "e5",
+                      "b6",       "d6",       "f6",
+                            "c5", "d5", "e5",
                 "a4", "b4", "c4",       "e4", "f4", "g4",
-                "c3", "d3", "e3",
-                "b2",       "d2",       "f2",
+                            "c3", "d3", "e3",
+                      "b2",       "d2",       "f2",
                 "a1",             "d1",             "g1"
+                //@formatter:on
         };
         for (String coord : possibleSpots) {
             spotMap.put(coord, new Spot(coord));
@@ -86,20 +88,6 @@ public class Board {
 
     /**
      *
-     * @param coord
-     * @return
-     */
-    public boolean hasSpot(String coord) {
-        for (String possibleSpot : possibleSpots) {
-            if (possibleSpot.equals(coord)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     *
      * @param coords
      * @return
      */
@@ -110,6 +98,20 @@ public class Board {
             }
         }
         return true;
+    }
+
+    /**
+     *
+     * @param coord
+     * @return
+     */
+    public boolean hasSpot(String coord) {
+        for (String possibleSpot : possibleSpots) {
+            if (possibleSpot.equals(coord)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

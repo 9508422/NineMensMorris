@@ -20,14 +20,6 @@ public class Piece {
      *
      * @return
      */
-    public Player getPlayer() {
-        return player;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Spot getSpot() {
         return spot;
     }
@@ -40,23 +32,13 @@ public class Piece {
         this.spot = spot;
     }
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String toString() {
-        return player.toString("colour");
-    }
-
-    /**
-     *
-     * @param piece
-     * @return
-     */
-    public boolean equals(Piece piece) {
-        return player.equals(piece.getPlayer());
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public boolean hasSpot() {
+		return spot != null;
+	}
 
     /**
      *
@@ -119,11 +101,29 @@ public class Piece {
         }
     }
 
+	/**
+	 *
+	 * @param piece
+	 * @return
+	 */
+	public boolean equals(Piece piece) {
+		return player.equals(piece.getPlayer());
+	}
+
     /**
      *
      * @return
      */
-    public boolean hasSpot() {
-        return spot != null;
+    public Player getPlayer() {
+        return player;
     }
+
+	/**
+	 *
+	 * @return
+	 */
+	@Override
+	public String toString() {
+		return player.toString("colour");
+	}
 }

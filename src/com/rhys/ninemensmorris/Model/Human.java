@@ -17,6 +17,7 @@ public class Human extends Player {
      * @param dest
      * @return
      */
+    @Override
     public Move move(int gameState, Spot src, Spot dest) {
         Move move = null;
         Move temp;

@@ -17,6 +17,7 @@ public class Place implements Move {
      * @param dest
      * @return
      */
+    @Override
     public boolean move(Player player, Piece piece, Spot noSpot, Spot dest) {
         if (piece.place(dest)) {
             this.player = player;

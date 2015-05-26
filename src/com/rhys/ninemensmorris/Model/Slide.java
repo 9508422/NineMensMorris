@@ -17,6 +17,7 @@ public class Slide implements Move {
      * @param dest
      * @return
      */
+    @Override
     public boolean move(Player player, Piece piece, Spot src, Spot dest) {
         if (piece.slide(dest)) {
             this.player = player;

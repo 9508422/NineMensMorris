@@ -17,6 +17,7 @@ public class Fly implements Move {
      * @param dest
      * @return
      */
+    @Override
     public boolean move(Player player, Piece piece, Spot src, Spot dest) {
         if (piece.fly(dest)) {
             this.player = player;
