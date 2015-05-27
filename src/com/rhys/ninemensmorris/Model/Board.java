@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Rhys on 14/05/2015.
+ * @author  Rhys Gevaux
+ * @version 2015.05.27
  */
 public class Board {
     private final Map<String, Spot> spotMap;

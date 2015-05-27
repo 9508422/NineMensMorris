@@ -1,7 +1,8 @@
 package com.rhys.ninemensmorris.Model;
 
 /**
- * Created by Rhys on 20/05/2015.
+ * @author  Rhys Gevaux
+ * @version 2015.05.27
  */
 public class Slide implements Move {
     private Player player;

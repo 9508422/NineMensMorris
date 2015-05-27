@@ -3,7 +3,8 @@ package com.rhys.ninemensmorris.Model;
 import com.rhys.ninemensmorris.Controller.Game;
 
 /**
- * Created by Rhys on 14/05/2015.
+ * @author  Rhys Gevaux
+ * @version 2015.05.27
  */
 public class Human extends Player {
     public Human(String name) {

@@ -10,7 +10,8 @@ import java.util.Scanner;
 import java.util.Stack;
 
 /**
- * Created by Rhys on 14/05/2015.
+ * @author  Rhys Gevaux
+ * @version 2015.05.27
  */
 public class Game {
     public static final int STATE_PLACE = 0;
@@ -20,8 +21,8 @@ public class Game {
     private static final int STATE_COMPLETE = 4;
 
     private final Board board;
-    private final Stack<Move> moveStack;
     private final Display display;
+	private final Stack<Move> moveStack;
 
     private Player playerOne;
     private Player playerTwo;
@@ -33,16 +34,17 @@ public class Game {
      *
      */
     public Game() {
-        this.moveStack = new Stack<Move>();
-        this.board = new Board();
         this.playerOne = null;
         this.playerTwo = null;
         this.currentPlayer = null;
+	    this.board = new Board();
         display = new Display(board);
+	    this.moveStack = new Stack<Move>();
     }
 
     /**
-     * @param destStr
+     * Sets the game state given a destination spot of a recent move.
+     * @param destStr the destination of the piece that most recently moved.
      */
     private void setGameState(String destStr) {
         if (destStr != null && board.pieceInMill(board.getSpot(destStr))) {
@@ -59,15 +61,15 @@ public class Game {
     }
 
     /**
-     *
+     * Sets the game state.
      */
     private void setGameState() {
         setGameState(null);
     }
 
     /**
-     *
-     * @return
+     * Gets the not current player
+     * @return not current player
      */
     Player getOtherPlayer() {
         if (currentPlayer.equals(playerOne)) {
@@ -78,7 +80,7 @@ public class Game {
     }
 
     /**
-     *
+     * Plays the game.
      */
     public void play() {
         Scanner in = new Scanner(System.in);
@@ -139,9 +141,10 @@ public class Game {
     }
 
     /**
-     *
-     * @param srcStr
-     * @param destStr
+     * Tells the player to move the piece.
+     * If the move is successful, adds the move to the stack, otherwise report an error.
+     * @param srcStr    The source spot of the move.
+     * @param destStr   The destination spot of the move.
      */
     void move(String srcStr, String destStr) {
         Move move = currentPlayer.move(gameState, board.getSpot(srcStr), board.getSpot(destStr));
@@ -162,8 +165,8 @@ public class Game {
     }
 
     /**
-     *
-     * @return
+     * Undoes the most recent move.
+     * @return A string to output based on if the undo was successful.
      */
     String undo() {
         if (moveStack.size() > 0) {

@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Rhys on 14/05/2015.
+ * @author  Rhys Gevaux
+ * @version 2015.05.27
  */
 public class Spot {
     private final Set<Spot> neighbours;

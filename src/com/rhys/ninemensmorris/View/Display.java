@@ -3,7 +3,8 @@ package com.rhys.ninemensmorris.View;
 import com.rhys.ninemensmorris.Model.Board;
 
 /**
- * Created by Rhys on 14/05/2015.
+ * @author  Rhys Gevaux
+ * @version 2015.05.27
  */
 public class Display {
     private final Board board;
