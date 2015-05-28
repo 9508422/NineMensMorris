@@ -55,9 +55,9 @@ public class Game {
 		// get player's names
 		Scanner in = new Scanner(System.in);
 		display.out("Player one's name: ");
-		playerOne = new Human(in.next().trim());
+		playerOne = new Human(in.nextLine().trim());
 		display.out("Player two's name: ");
-		playerTwo = new Human(in.next().trim());
+		playerTwo = new Human(in.nextLine().trim());
 		currentPlayer = playerOne;
 
 		display.drawBoard();
@@ -81,7 +81,8 @@ public class Game {
 					break;
 			}
 
-			input = in.next().trim().toLowerCase();
+			input = in.nextLine().trim().toLowerCase();
+
 			if (input.equals("stop")) {
 				display.out("Game stopped by " + currentPlayer.toString("name") + "\n");
 				System.exit(1);
@@ -91,13 +92,13 @@ public class Game {
 				if (board.hasSpot(input)) {
 					move(null, input);
 				} else {
-					display.out("Move invalid.\n");
+					display.out("Spot doesn't exist.\n");
 				}
 			} else if (input.length() == 2 && gameState == STATE_REMOVE) {
 				if (board.hasSpot(input)) {
 					move(input, null);
 				} else {
-					display.out("Move invalid.\n");
+					display.out("Spot doesn't exist.\n");
 				}
 			} else if (input.length() == 6 && input.contains("->") && (gameState == STATE_SLIDE ||
 					gameState == STATE_FLY)) {
@@ -105,7 +106,7 @@ public class Game {
 				if (board.hasSpots(splitStr)) {
 					move(splitStr[0], splitStr[1]);
 				} else {
-					display.out("Move invalid.\n");
+					display.out("Spot(s) doesn't exist.\n");
 				}
 			} else {
 				display.out("Invalid input.\n");
@@ -151,8 +152,8 @@ public class Game {
 	}
 
 	/**
-	 * Tells the player to move the piece.
-	 * If the move is successful, adds the move to the stack, otherwise report an error.
+	 * Asks the player if the move is valid.
+	 * If the move is valid, tells the player to move the piece and adds the resulting move to the Move Stack.
 	 *
 	 * @param srcStr  The source spot of the move.
 	 * @param destStr The destination spot of the move.
