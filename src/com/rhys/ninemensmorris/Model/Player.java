@@ -45,7 +45,7 @@ public abstract class Player {
 	 */
 	public boolean hasAllPiecesPlaced() {
 		for (Piece piece : pieceSet) {
-			if (piece.getSpot() == null) {
+			if (!piece.hasSpot()) {
 				return false;
 			}
 		}

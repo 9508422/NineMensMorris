@@ -7,19 +7,18 @@ import com.rhys.ninemensmorris.Model.Board;
  * @version 2015.05.27
  */
 public class Display {
-	private static final Display INSTANCE = new Display(Board.getInstance());
+	private static final Display INSTANCE = new Display();
 
 	private final Board board;
 
 	/**
-	 * @param board
 	 */
-	private Display(Board board) {
-		this.board = board;
+	private Display() {
+		this.board = Board.getInstance();
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public static Display getInstance() {
@@ -37,9 +36,8 @@ public class Display {
 	 *
 	 */
 	public void drawBoard() {
-		int kb = 1024;
-		Runtime runtime = Runtime.getRuntime();
-		System.out.println("Used Memory:" + (runtime.totalMemory() - runtime.freeMemory()) / kb + " KB");
+		System.out.println("Used Memory:" + (Runtime.getRuntime().totalMemory() -
+				Runtime.getRuntime().freeMemory()) / 1024 + " KB");
 
 
 		System.out.println("7 " + board.getSpot("a7") + " - - " + board.getSpot("d7") + " - - " + board.getSpot("g7"));
