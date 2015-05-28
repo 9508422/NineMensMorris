@@ -114,4 +114,13 @@ public abstract class Player {
 		}
 		return null;
 	}
+
+	public boolean allPiecesInMill() {
+		for (Piece piece : pieceSet) {
+			if (!piece.getInMill()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

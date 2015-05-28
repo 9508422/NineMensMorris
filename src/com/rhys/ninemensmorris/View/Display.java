@@ -27,6 +27,11 @@ public class Display {
 	 *
 	 */
 	public void drawBoard() {
+		int kb = 1024;
+		Runtime runtime = Runtime.getRuntime();
+		System.out.println("Used Memory:" + (runtime.totalMemory() - runtime.freeMemory()) / kb + " KB");
+
+
 		System.out.println("7 " + board.getSpot("a7") + " - - " + board.getSpot("d7") + " - - " + board.getSpot("g7"));
 		System.out.println("6 | " + board.getSpot("b6") + " - " + board.getSpot("d6") + " - " + board.getSpot("f6") +
 				" |");

@@ -55,4 +55,8 @@ public class Fly implements Move {
 	public Spot getDest() {
 		return dest;
 	}
+
+	public Spot getSrc() {
+		return src;
+	}
 }

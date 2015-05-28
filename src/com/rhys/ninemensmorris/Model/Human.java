@@ -20,7 +20,7 @@ public class Human extends Player {
 	@Override
 	public Move move(int gameState, Spot src, Spot dest) {
 		Move move = null;
-		Piece piece = null;
+		Piece piece;
 
 		if (gameState == Game.STATE_PLACE) {
 			piece = getUnplacedPiece();

@@ -56,4 +56,9 @@ public class Remove implements Move {
 	public Spot getDest() {
 		return dest;
 	}
+
+	@Override
+	public Spot getSrc() {
+		return src;
+	}
 }

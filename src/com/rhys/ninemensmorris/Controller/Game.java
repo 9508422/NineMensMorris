@@ -137,7 +137,7 @@ public class Game {
 			if (moveStack.empty()) {
 				setGameState();
 			} else {
-				setGameState(moveStack.peek().getDest().getCoord());
+				setGameState(moveStack.peek().getSrc().getCoord(), moveStack.peek().getDest().getCoord());
 			}
 			return "Move undone.\n";
 		} else {
@@ -158,7 +158,7 @@ public class Game {
 			moveStack.push(move);
 			display.out("Move successful.\n");
 
-			setGameState(destStr);
+			setGameState(srcStr, destStr);
 			if (gameState == STATE_REMOVE) {
 				display.out("Mill created!\n");
 			} else {
@@ -173,7 +173,7 @@ public class Game {
 	 * Sets the game state.
 	 */
 	private void setGameState() {
-		setGameState(null);
+		setGameState(null, null);
 	}
 
 	/**
@@ -181,14 +181,14 @@ public class Game {
 	 *
 	 * @param destStr the destination of the piece that most recently moved.
 	 */
-	private void setGameState(String destStr) {
-		if (destStr != null && board.pieceInMill(board.getSpot(destStr))) {
+	private void setGameState(String srcStr, String destStr) {
+		if (board.pieceInMill(srcStr, destStr)) {
 			gameState = STATE_REMOVE;
-		} else if (!currentPlayer.hasAllPiecesPlaced()) {
+		} else if (!getOtherPlayer().hasAllPiecesPlaced()) {
 			gameState = STATE_PLACE;
-		} else if (currentPlayer.hasThreePiecesLeft()) {
+		} else if (getOtherPlayer().hasThreePiecesLeft()) {
 			gameState = STATE_FLY;
-		} else if (currentPlayer.hasNoLegalMove() || currentPlayer.hasTwoPiecesLeft()) {
+		} else if (getOtherPlayer().hasNoLegalMove() || getOtherPlayer().hasTwoPiecesLeft()) {
 			gameState = STATE_COMPLETE;
 		} else {
 			gameState = STATE_SLIDE;

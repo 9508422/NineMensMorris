@@ -54,4 +54,8 @@ public class Place implements Move {
 	public Spot getDest() {
 		return dest;
 	}
+
+	public Spot getSrc() {
+		return src;
+	}
 }

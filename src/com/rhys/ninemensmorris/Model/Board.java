@@ -1,8 +1,9 @@
 package com.rhys.ninemensmorris.Model;
 
-
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Rhys Gevaux
@@ -11,7 +12,9 @@ import java.util.Map;
 public class Board {
 	private final Map<String, Spot> spotMap;
 	private final String[] possibleSpots;
-	private final Spot[][] mills;
+	private final Spot[][] possibleMills;
+
+	private Set<Spot[]> mills;
 
 	/**
 	 *
@@ -19,15 +22,13 @@ public class Board {
 	public Board() {
 		spotMap = new HashMap<String, Spot>();
 		possibleSpots = new String[]{
-				//@formatter:off
-				"a7", "d7", "g7",
-				"b6", "d6", "f6",
-				"c5", "d5", "e5",
-				"a4", "b4", "c4", "e4", "f4", "g4",
-				"c3", "d3", "e3",
-				"b2", "d2", "f2",
-				"a1", "d1", "g1"
-				//@formatter:on
+				"a7",             "d7",             "g7",
+					  "b6",       "d6",       "f6",
+							"c5", "d5", "e5",
+				"a4", "b4", "c4",       "e4", "f4", "g4",
+							"c3", "d3", "e3",
+					  "b2",       "d2",       "f2",
+				"a1",             "d1",             "g1"
 		};
 		for (String coord : possibleSpots) {
 			spotMap.put(coord, new Spot(coord));
@@ -58,7 +59,7 @@ public class Board {
 		getSpot("g4").setNeighbours(new Spot[]{getSpot("f4"), getSpot("g1"), getSpot("g7")});
 		getSpot("g7").setNeighbours(new Spot[]{getSpot("d7"), getSpot("g4")});
 
-		mills = new Spot[][]{
+		possibleMills = new Spot[][]{
 				{getSpot("a1"), getSpot("a4"), getSpot("a7")},
 				{getSpot("a1"), getSpot("d1"), getSpot("g1")},
 				{getSpot("a4"), getSpot("b4"), getSpot("c4")},
@@ -76,6 +77,8 @@ public class Board {
 				{getSpot("f2"), getSpot("f4"), getSpot("f6")},
 				{getSpot("g1"), getSpot("g4"), getSpot("g7")}
 		};
+
+		mills = new HashSet<Spot[]>();
 	}
 
 	/**
@@ -113,12 +116,13 @@ public class Board {
 	}
 
 	/**
-	 * @param dest
+	 * @param //dest
 	 * @return
 	 */
-	public boolean pieceInMill(Spot dest) {
+	//@Deprecated
+	/*public boolean pieceInMill(Spot dest) {
 		int count = 0;
-		for (Spot[] mill : mills) {
+		for (Spot[] mill : possibleMills) {
 			for (Spot theSpot : mill) {
 				if (theSpot.equals(dest)) {
 					for (Spot aSpot : mill) {
@@ -134,5 +138,49 @@ public class Board {
 			}
 		}
 		return false;
+	}*/
+
+	public boolean pieceInMill(String srcStr, String destStr) {
+		boolean millCreated = false;
+
+		Spot src = spotMap.get(srcStr);
+		Spot dest = spotMap.get(destStr);
+
+		for (Spot[] possibleMill : possibleMills) {
+			for (Spot spot : possibleMill) {
+				if (spot.equals(src) || spot.equals(dest)) {
+					if (allHavePieces(possibleMill) && allPiecesEqual(possibleMill)) {
+						if (!mills.contains(possibleMill)) {
+							mills.add(possibleMill);
+							millCreated = true;
+						}
+						for (Spot millSpot : possibleMill) {
+							millSpot.getPiece().setInMilll(true);
+						}
+					} else {
+						mills.remove(possibleMill);
+					}
+				}
+			}
+		}
+		return millCreated;
+	}
+
+	private boolean allHavePieces(Spot[] spots) {
+		for (Spot spot : spots) {
+			if (!spot.hasPiece()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean allPiecesEqual(Spot[] spots) {
+		for (int i = 1; i < spots.length; i++) {
+			if (!spots[i].getPiece().equals(spots[i - 1].getPiece())) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
