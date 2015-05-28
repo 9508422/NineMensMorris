@@ -14,13 +14,12 @@ import java.util.Stack;
  * @version 2015.05.27
  */
 public class Game {
-	private static final Game INSTANCE = new Game();
-
 	// Static integers for all the game states.
 	public static final int STATE_PLACE = 0;
 	public static final int STATE_REMOVE = 1;
 	public static final int STATE_SLIDE = 2;
 	public static final int STATE_FLY = 3;
+	private static final Game INSTANCE = new Game();
 	private static final int STATE_COMPLETE = 4;
 
 	private final Board board;

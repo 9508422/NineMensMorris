@@ -7,7 +7,7 @@ package com.rhys.ninemensmorris.Model;
 public class Piece {
 	private final Player player;
 	private Spot spot;
-	private boolean inMilll;
+	private boolean inMill;
 
 	/**
 	 * @param player
@@ -15,15 +15,15 @@ public class Piece {
 	public Piece(Player player) {
 		this.player = player;
 		this.spot = null;
-		this.inMilll = false;
+		this.inMill = false;
 	}
 
 	public boolean getInMill() {
-		return inMilll;
+		return inMill;
 	}
 
-	public void setInMilll(boolean inMilll) {
-		this.inMilll = inMilll;
+	public void setInMill() {
+		inMill = true;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class Piece {
 	 * @return
 	 */
 	public boolean remove() {
-		if (spot != null && ((!player.allPiecesInMill() && !inMilll) || (player.allPiecesInMill()))) {
+		if (spot != null && ((!player.allPiecesInMill() && !inMill) || (player.allPiecesInMill()))) {
 			spot.removePiece();
 			spot = null;
 			return true;

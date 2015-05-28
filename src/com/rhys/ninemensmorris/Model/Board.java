@@ -16,7 +16,7 @@ public class Board {
 	private final String[] possibleSpots;
 	private final Spot[][] possibleMills;
 
-	private Set<Spot[]> mills;
+	private final Set<Spot[]> mills;
 
 	/**
 	 *
@@ -24,13 +24,13 @@ public class Board {
 	private Board() {
 		spotMap = new HashMap<String, Spot>();
 		possibleSpots = new String[]{
-				"a7",             "d7",             "g7",
-					  "b6",       "d6",       "f6",
-							"c5", "d5", "e5",
-				"a4", "b4", "c4",       "e4", "f4", "g4",
-							"c3", "d3", "e3",
-					  "b2",       "d2",       "f2",
-				"a1",             "d1",             "g1"
+				"a7", "d7", "g7",
+				"b6", "d6", "f6",
+				"c5", "d5", "e5",
+				"a4", "b4", "c4", "e4", "f4", "g4",
+				"c3", "d3", "e3",
+				"b2", "d2", "f2",
+				"a1", "d1", "g1"
 		};
 		for (String coord : possibleSpots) {
 			spotMap.put(coord, new Spot(coord));
@@ -83,16 +83,16 @@ public class Board {
 		mills = new HashSet<Spot[]>();
 	}
 
-	public static Board getInstance() {
-		return INSTANCE;
-	}
-
 	/**
 	 * @param coord
 	 * @return
 	 */
 	public Spot getSpot(String coord) {
 		return spotMap.get(coord);
+	}
+
+	public static Board getInstance() {
+		return INSTANCE;
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class Board {
 							millCreated = true;
 						}
 						for (Spot millSpot : possibleMill) {
-							millSpot.getPiece().setInMilll(true);
+							millSpot.getPiece().setInMill();
 						}
 					} else {
 						mills.remove(possibleMill);
