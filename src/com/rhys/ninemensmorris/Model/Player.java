@@ -97,6 +97,10 @@ public abstract class Player {
 		return null;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public boolean allPiecesInMill() {
 		for (Piece piece : pieceSet) {
 			if (!piece.getInMill()) {
@@ -155,6 +159,13 @@ public abstract class Player {
 		return null;
 	}
 
+	/**
+	 *
+	 * @param gameState
+	 * @param src
+	 * @param dest
+	 * @return
+	 */
 	public boolean validMove(int gameState, Spot src, Spot dest) {
 		Move move = null;
 		Piece piece;

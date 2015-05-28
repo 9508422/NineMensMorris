@@ -10,6 +10,13 @@ public class Fly implements Move {
 	private Spot src;
 	private Spot dest;
 
+	/**
+	 *
+	 * @param player
+	 * @param piece
+	 * @param dest
+	 * @return
+	 */
 	@Override
 	public boolean validMove(Player player, Piece piece, Spot dest) {
 		return piece.validFly(dest);
@@ -57,6 +64,11 @@ public class Fly implements Move {
 		return dest;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	@Override
 	public Spot getSrc() {
 		return src;
 	}

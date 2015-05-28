@@ -58,6 +58,10 @@ public class Remove implements Move {
 		return dest;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@Override
 	public Spot getSrc() {
 		return src;

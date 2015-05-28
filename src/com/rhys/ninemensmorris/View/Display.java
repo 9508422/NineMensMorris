@@ -18,6 +18,10 @@ public class Display {
 		this.board = board;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static Display getInstance() {
 		return INSTANCE;
 	}

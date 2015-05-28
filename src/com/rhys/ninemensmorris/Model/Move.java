@@ -37,5 +37,9 @@ public interface Move {
 	 */
 	Spot getDest();
 
+	/**
+	 *
+	 * @return
+	 */
 	Spot getSrc();
 }

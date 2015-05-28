@@ -13,24 +13,27 @@ public class Board {
 	private static final Board INSTANCE = new Board();
 
 	private final Map<String, Spot> spotMap;
-	private final String[] possibleSpots;
 	private final Spot[][] possibleMills;
 
 	private final Set<Spot[]> mills;
 
 	/**
-	 *
+	 * Board constructor:
+	 * Creates a Hash Map of Spots for easy spot getting from input
+	 * Statically sets all the neighbours of each Spot
+	 * Statically stores all possible Mills
+	 * Creates new Hash Set to hold all current Mills
 	 */
 	private Board() {
 		spotMap = new HashMap<String, Spot>();
-		possibleSpots = new String[]{
-				"a7",             "d7",             "g7",
-				      "b6",       "d6",       "f6",
-				            "c5", "d5", "e5",
-				"a4", "b4", "c4",       "e4", "f4", "g4",
-				            "c3", "d3", "e3",
-				      "b2",       "d2",       "f2",
-				"a1",             "d1",             "g1"
+		String[] possibleSpots = new String[]{
+				"a7", "d7", "g7",
+				"b6", "d6", "f6",
+				"c5", "d5", "e5",
+				"a4", "b4", "c4", "e4", "f4", "g4",
+				"c3", "d3", "e3",
+				"b2", "d2", "f2",
+				"a1", "d1", "g1"
 		};
 		for (String coord : possibleSpots) {
 			spotMap.put(coord, new Spot(coord));
@@ -91,6 +94,10 @@ public class Board {
 		return spotMap.get(coord);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public static Board getInstance() {
 		return INSTANCE;
 	}
@@ -113,7 +120,7 @@ public class Board {
 	 * @return
 	 */
 	public boolean hasSpot(String coord) {
-		for (String possibleSpot : possibleSpots) {
+		for (String possibleSpot : spotMap.keySet()) {
 			if (possibleSpot.equals(coord)) {
 				return true;
 			}
@@ -121,6 +128,12 @@ public class Board {
 		return false;
 	}
 
+	/**
+	 *
+	 * @param srcStr
+	 * @param destStr
+	 * @return
+	 */
 	public boolean pieceInMill(String srcStr, String destStr) {
 		boolean millCreated = false;
 
@@ -147,6 +160,11 @@ public class Board {
 		return millCreated;
 	}
 
+	/**
+	 *
+	 * @param spots
+	 * @return
+	 */
 	private boolean allHavePieces(Spot[] spots) {
 		for (Spot spot : spots) {
 			if (!spot.hasPiece()) {
@@ -156,6 +174,11 @@ public class Board {
 		return true;
 	}
 
+	/**
+	 *
+	 * @param spots
+	 * @return
+	 */
 	private boolean allPiecesEqual(Spot[] spots) {
 		for (int i = 1; i < spots.length; i++) {
 			if (!spots[i].getPiece().equals(spots[i - 1].getPiece())) {

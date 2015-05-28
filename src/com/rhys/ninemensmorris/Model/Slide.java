@@ -57,6 +57,11 @@ public class Slide implements Move {
 		return dest;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	@Override
 	public Spot getSrc() {
 		return src;
 	}

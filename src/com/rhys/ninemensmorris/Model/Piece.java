@@ -18,10 +18,17 @@ public class Piece {
 		this.inMill = false;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public boolean getInMill() {
 		return inMill;
 	}
 
+	/**
+	 *
+	 */
 	public void setInMill() {
 		inMill = true;
 	}
@@ -47,6 +54,11 @@ public class Piece {
 		return spot != null;
 	}
 
+	/**
+	 *
+	 * @param dest
+	 * @return
+	 */
 	public boolean validPlace(Spot dest) {
 		return !dest.hasPiece();
 	}
@@ -59,6 +71,10 @@ public class Piece {
 		spot = dest;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public boolean validRemove() {
 		return spot != null && ((!player.allPiecesInMill() && !inMill) || player.allPiecesInMill());
 	}
@@ -70,6 +86,11 @@ public class Piece {
 		spot = null;
 	}
 
+	/**
+	 *
+	 * @param dest
+	 * @return
+	 */
 	public boolean validSlide(Spot dest) {
 		return spot.hasNeighbour(dest) && !dest.hasPiece();
 	}
@@ -83,6 +104,11 @@ public class Piece {
 		spot.setPiece(this);
 	}
 
+	/**
+	 *
+	 * @param dest
+	 * @return
+	 */
 	public boolean validFly(Spot dest) {
 		return !dest.hasPiece();
 	}
