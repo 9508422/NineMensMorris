@@ -11,6 +11,7 @@ class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Game().play();
+		Game game = Game.getInstance();
+		game.play();
 	}
 }

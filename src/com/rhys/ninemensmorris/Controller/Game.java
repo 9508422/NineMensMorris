@@ -14,6 +14,8 @@ import java.util.Stack;
  * @version 2015.05.27
  */
 public class Game {
+	private static final Game INSTANCE = new Game();
+
 	// Static integers for all the game states.
 	public static final int STATE_PLACE = 0;
 	public static final int STATE_REMOVE = 1;
@@ -34,13 +36,17 @@ public class Game {
 	/**
 	 * Constructs the game object.
 	 */
-	public Game() {
+	private Game() {
 		this.playerOne = null;
 		this.playerTwo = null;
 		this.currentPlayer = null;
-		this.board = new Board();
-		display = new Display(board);
+		this.board = Board.getInstance();
+		display = Display.getInstance();
 		this.moveStack = new Stack<Move>();
+	}
+
+	public static Game getInstance() {
+		return INSTANCE;
 	}
 
 	/**

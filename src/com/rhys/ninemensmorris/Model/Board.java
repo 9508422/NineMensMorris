@@ -10,6 +10,8 @@ import java.util.Set;
  * @version 2015.05.27
  */
 public class Board {
+	private static final Board INSTANCE = new Board();
+
 	private final Map<String, Spot> spotMap;
 	private final String[] possibleSpots;
 	private final Spot[][] possibleMills;
@@ -19,7 +21,7 @@ public class Board {
 	/**
 	 *
 	 */
-	public Board() {
+	private Board() {
 		spotMap = new HashMap<String, Spot>();
 		possibleSpots = new String[]{
 				"a7",             "d7",             "g7",
@@ -79,6 +81,10 @@ public class Board {
 		};
 
 		mills = new HashSet<Spot[]>();
+	}
+
+	public static Board getInstance() {
+		return INSTANCE;
 	}
 
 	/**

@@ -7,13 +7,19 @@ import com.rhys.ninemensmorris.Model.Board;
  * @version 2015.05.27
  */
 public class Display {
+	private static final Display INSTANCE = new Display(Board.getInstance());
+
 	private final Board board;
 
 	/**
 	 * @param board
 	 */
-	public Display(Board board) {
+	private Display(Board board) {
 		this.board = board;
+	}
+
+	public static Display getInstance() {
+		return INSTANCE;
 	}
 
 	/**
