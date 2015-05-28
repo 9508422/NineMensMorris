@@ -9,11 +9,18 @@ public interface Move {
 	/**
 	 * @param player
 	 * @param piece
-	 * @param src
 	 * @param dest
 	 * @return
 	 */
-	boolean move(Player player, Piece piece, Spot src, Spot dest);
+	boolean validMove(Player player, Piece piece, Spot dest);
+
+	/**
+	 * @param player
+	 * @param piece
+	 * @param src
+	 * @param dest
+	 */
+	void move(Player player, Piece piece, Spot src, Spot dest);
 
 	/**
 	 *

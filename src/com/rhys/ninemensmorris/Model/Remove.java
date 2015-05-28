@@ -10,6 +10,11 @@ public class Remove implements Move {
 	private Spot src;
 	private Spot dest;
 
+	@Override
+	public boolean validMove(Player player, Piece piece, Spot dest) {
+		return !player.equals(piece.getPlayer()) && piece.validRemove();
+	}
+
 	/**
 	 * @param player
 	 * @param piece
@@ -18,17 +23,13 @@ public class Remove implements Move {
 	 * @return
 	 */
 	@Override
-	public boolean move(Player player, Piece piece, Spot src, Spot dest) {
-		if (piece.getPlayer() != player && piece.remove()) {
-			this.player = player;
-			this.piece = piece;
-			this.src = src;
-			this.dest = dest;
-			this.piece.getPlayer().removePiece(this.piece);
-			return true;
-		} else {
-			return false;
-		}
+	public void move(Player player, Piece piece, Spot src, Spot dest) {
+		piece.remove();
+		this.player = player;
+		this.piece = piece;
+		this.src = src;
+		this.dest = dest;
+		this.piece.getPlayer().removePiece(this.piece);
 	}
 
 	/**

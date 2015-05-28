@@ -123,4 +123,6 @@ public abstract class Player {
 		}
 		return true;
 	}
+
+	public abstract boolean validMove(int gameState, Spot src, Spot dest);
 }

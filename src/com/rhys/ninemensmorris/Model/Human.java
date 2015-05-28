@@ -42,11 +42,38 @@ public class Human extends Player {
 				move = new Fly();
 				break;
 		}
-
-		if (move != null && move.move(this, piece, src, dest)) {
-			return move;
-		} else {
-			return null;
+		if (move != null) {
+			move.move(this, piece, src, dest);
 		}
+
+		return move;
+	}
+
+	public boolean validMove(int gameState, Spot src, Spot dest) {
+		Move move = null;
+		Piece piece;
+
+		if (gameState == Game.STATE_PLACE) {
+			piece = getUnplacedPiece();
+		} else {
+			piece = src.getPiece();
+		}
+
+		switch (gameState) {
+			case Game.STATE_PLACE:
+				move = new Place();
+				break;
+			case Game.STATE_REMOVE:
+				move = new Remove();
+				break;
+			case Game.STATE_SLIDE:
+				move = new Slide();
+				break;
+			case Game.STATE_FLY:
+				move = new Fly();
+				break;
+		}
+
+		return move != null && move.validMove(this, piece, dest);
 	}
 }

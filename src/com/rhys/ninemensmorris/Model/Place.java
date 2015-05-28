@@ -10,6 +10,10 @@ public class Place implements Move {
 	private Spot src;
 	private Spot dest;
 
+	public boolean validMove(Player player, Piece piece, Spot dest) {
+		return piece.validPlace(dest);
+	}
+
 	/**
 	 * @param player
 	 * @param piece
@@ -18,16 +22,12 @@ public class Place implements Move {
 	 * @return
 	 */
 	@Override
-	public boolean move(Player player, Piece piece, Spot noSpot, Spot dest) {
-		if (piece.place(dest)) {
-			this.player = player;
-			this.piece = piece;
-			this.src = noSpot;
-			this.dest = dest;
-			return true;
-		} else {
-			return false;
-		}
+	public void move(Player player, Piece piece, Spot noSpot, Spot dest) {
+		piece.place(dest);
+		this.player = player;
+		this.piece = piece;
+		this.src = noSpot;
+		this.dest = dest;
 	}
 
 	/**

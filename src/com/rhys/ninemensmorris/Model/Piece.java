@@ -47,61 +47,53 @@ public class Piece {
 		return spot != null;
 	}
 
-	/**
-	 * @param dest
-	 * @return
-	 */
-	public boolean place(Spot dest) {
-		if (!dest.hasPiece()) {
-			dest.setPiece(this);
-			spot = dest;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * @return
-	 */
-	public boolean remove() {
-		if (spot != null && ((!player.allPiecesInMill() && !inMill) || (player.allPiecesInMill()))) {
-			spot.removePiece();
-			spot = null;
-			return true;
-		} else {
-			return false;
-		}
+	public boolean validPlace(Spot dest) {
+		return !dest.hasPiece();
 	}
 
 	/**
 	 * @param dest
-	 * @return
 	 */
-	public boolean slide(Spot dest) {
-		if (spot.hasNeighbour(dest) && !dest.hasPiece()) {
-			spot.removePiece();
-			spot = dest;
-			spot.setPiece(this);
-			return true;
-		} else {
-			return false;
-		}
+	public void place(Spot dest) {
+		dest.setPiece(this);
+		spot = dest;
+	}
+
+	public boolean validRemove() {
+		return spot != null && ((!player.allPiecesInMill() && !inMill) || player.allPiecesInMill());
+	}
+
+	/**
+	 */
+	public void remove() {
+		spot.removePiece();
+		spot = null;
+	}
+
+	public boolean validSlide(Spot dest) {
+		return spot.hasNeighbour(dest) && !dest.hasPiece();
 	}
 
 	/**
 	 * @param dest
-	 * @return
 	 */
-	public boolean fly(Spot dest) {
-		if (!dest.hasPiece()) {
-			spot.removePiece();
-			spot = dest;
-			spot.setPiece(this);
-			return true;
-		} else {
-			return false;
-		}
+	public void slide(Spot dest) {
+		spot.removePiece();
+		spot = dest;
+		spot.setPiece(this);
+	}
+
+	public boolean validFly(Spot dest) {
+		return !dest.hasPiece();
+	}
+
+	/**
+	 * @param dest
+	 */
+	public void fly(Spot dest) {
+		spot.removePiece();
+		spot = dest;
+		spot.setPiece(this);
 	}
 
 	/**

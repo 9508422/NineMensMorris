@@ -10,6 +10,11 @@ public class Fly implements Move {
 	private Spot src;
 	private Spot dest;
 
+	@Override
+	public boolean validMove(Player player, Piece piece, Spot dest) {
+		return piece.validFly(dest);
+	}
+
 	/**
 	 * @param player
 	 * @param piece
@@ -18,16 +23,12 @@ public class Fly implements Move {
 	 * @return
 	 */
 	@Override
-	public boolean move(Player player, Piece piece, Spot src, Spot dest) {
-		if (piece.fly(dest)) {
-			this.player = player;
-			this.piece = piece;
-			this.src = src;
-			this.dest = dest;
-			return true;
-		} else {
-			return false;
-		}
+	public void move(Player player, Piece piece, Spot src, Spot dest) {
+		piece.fly(dest);
+		this.player = player;
+		this.piece = piece;
+		this.src = src;
+		this.dest = dest;
 	}
 
 	/**

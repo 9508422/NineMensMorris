@@ -158,9 +158,8 @@ public class Game {
 	 * @param destStr The destination spot of the move.
 	 */
 	void move(String srcStr, String destStr) {
-		Move move = currentPlayer.move(gameState, board.getSpot(srcStr), board.getSpot(destStr));
-		if (move != null) {
-			moveStack.push(move);
+		if (currentPlayer.validMove(gameState, board.getSpot(srcStr), board.getSpot(destStr))) {
+			moveStack.push(currentPlayer.move(gameState, board.getSpot(srcStr), board.getSpot(destStr)));
 			display.out("Move successful.\n");
 
 			setGameState(srcStr, destStr);
