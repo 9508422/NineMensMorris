@@ -139,12 +139,7 @@ public class Game {
 		if (moveStack.size() > 0) {
 			currentPlayer = moveStack.peek().getPlayer();
 			moveStack.pop().undo();
-
-			if (moveStack.empty()) {
-				setGameState();
-			} else {
-				setGameState(moveStack.peek().getSrc().getCoord(), moveStack.peek().getDest().getCoord());
-			}
+			setGameState();
 			return "Move undone.\n";
 		} else {
 			return "No moves to undo!\n";
@@ -163,7 +158,7 @@ public class Game {
 			moveStack.push(currentPlayer.move(gameState, board.getSpot(srcStr), board.getSpot(destStr)));
 			display.out("Move successful.\n");
 
-			setGameState(srcStr, destStr);
+			setGameState();
 			if (gameState == STATE_REMOVE) {
 				display.out("Mill created!\n");
 			} else {
@@ -175,19 +170,10 @@ public class Game {
 	}
 
 	/**
-	 * Sets the game state.
+	 * Sets the game state given a destination spot of a recent move.
 	 */
 	private void setGameState() {
-		setGameState(null, null);
-	}
-
-	/**
-	 * Sets the game state given a destination spot of a recent move.
-	 *
-	 * @param destStr the destination of the piece that most recently moved.
-	 */
-	private void setGameState(String srcStr, String destStr) {
-		if (board.pieceInMill(srcStr, destStr)) {
+		if (board.millCreated()) {
 			gameState = STATE_REMOVE;
 		} else if (!getOtherPlayer().hasAllPiecesPlaced()) {
 			gameState = STATE_PLACE;

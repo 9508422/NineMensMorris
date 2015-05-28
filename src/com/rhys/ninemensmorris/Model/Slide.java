@@ -49,20 +49,4 @@ public class Slide implements Move {
 		return player;
 	}
 
-	/**
-	 * @return
-	 */
-	@Override
-	public Spot getDest() {
-		return dest;
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	@Override
-	public Spot getSrc() {
-		return src;
-	}
 }

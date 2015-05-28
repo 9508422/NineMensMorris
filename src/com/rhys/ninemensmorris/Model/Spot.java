@@ -10,15 +10,12 @@ import java.util.Set;
  */
 public class Spot {
 	private final Set<Spot> neighbours;
-	private final String coord;
 	private Piece piece;
 
 	/**
-	 * @param coord
 	 */
-	public Spot(String coord) {
+	public Spot() {
 		this.neighbours = new HashSet<Spot>();
-		this.coord = coord;
 		this.piece = null;
 	}
 
@@ -42,13 +39,6 @@ public class Spot {
 	 */
 	public boolean hasNeighbour(Spot neighbour) {
 		return neighbours.contains(neighbour);
-	}
-
-	/**
-	 * @return
-	 */
-	public String getCoord() {
-		return coord;
 	}
 
 	/**

@@ -19,7 +19,6 @@ public class Piece {
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public boolean getInMill() {
@@ -29,8 +28,8 @@ public class Piece {
 	/**
 	 *
 	 */
-	public void setInMill() {
-		inMill = true;
+	public void setInMill(boolean bool) {
+		inMill = bool;
 	}
 
 	/**
@@ -55,7 +54,6 @@ public class Piece {
 	}
 
 	/**
-	 *
 	 * @param dest
 	 * @return
 	 */
@@ -72,7 +70,6 @@ public class Piece {
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public boolean validRemove() {
@@ -87,7 +84,6 @@ public class Piece {
 	}
 
 	/**
-	 *
 	 * @param dest
 	 * @return
 	 */
@@ -105,7 +101,6 @@ public class Piece {
 	}
 
 	/**
-	 *
 	 * @param dest
 	 * @return
 	 */

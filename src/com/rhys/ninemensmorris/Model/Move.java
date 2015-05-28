@@ -32,14 +32,4 @@ public interface Move {
 	 */
 	Player getPlayer();
 
-	/**
-	 * @return
-	 */
-	Spot getDest();
-
-	/**
-	 *
-	 * @return
-	 */
-	Spot getSrc();
 }
