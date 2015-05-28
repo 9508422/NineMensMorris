@@ -1,5 +1,7 @@
 package com.rhys.ninemensmorris.Model;
 
+import com.rhys.ninemensmorris.Controller.Game;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,26 +24,6 @@ public abstract class Player {
 		}
 		this.name = name;
 		this.colour = name.substring(0, 1);
-	}
-
-	/**
-	 * @param gameState
-	 * @param src
-	 * @param dest
-	 * @return
-	 */
-	public abstract Move move(int gameState, Spot src, Spot dest);
-
-	/**
-	 * @return
-	 */
-	Piece getUnplacedPiece() {
-		for (Piece piece : pieceSet) {
-			if (!piece.hasSpot()) {
-				return piece;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -124,5 +106,80 @@ public abstract class Player {
 		return true;
 	}
 
-	public abstract boolean validMove(int gameState, Spot src, Spot dest);
+	/**
+	 * @param gameState
+	 * @param src
+	 * @param dest
+	 * @return
+	 */
+	public Move move(int gameState, Spot src, Spot dest) {
+		Move move = null;
+		Piece piece;
+
+		if (gameState == Game.STATE_PLACE) {
+			piece = getUnplacedPiece();
+		} else {
+			piece = src.getPiece();
+		}
+
+		switch (gameState) {
+			case Game.STATE_PLACE:
+				move = new Place();
+				break;
+			case Game.STATE_REMOVE:
+				move = new Remove();
+				break;
+			case Game.STATE_SLIDE:
+				move = new Slide();
+				break;
+			case Game.STATE_FLY:
+				move = new Fly();
+				break;
+		}
+		if (move != null) {
+			move.move(this, piece, src, dest);
+		}
+
+		return move;
+	}
+
+	/**
+	 * @return
+	 */
+	Piece getUnplacedPiece() {
+		for (Piece piece : pieceSet) {
+			if (!piece.hasSpot()) {
+				return piece;
+			}
+		}
+		return null;
+	}
+
+	public boolean validMove(int gameState, Spot src, Spot dest) {
+		Move move = null;
+		Piece piece;
+
+		if (gameState == Game.STATE_PLACE) {
+			piece = getUnplacedPiece();
+		} else {
+			piece = src.getPiece();
+		}
+
+		switch (gameState) {
+			case Game.STATE_PLACE:
+				move = new Place();
+				break;
+			case Game.STATE_REMOVE:
+				move = new Remove();
+				break;
+			case Game.STATE_SLIDE:
+				move = new Slide();
+				break;
+			case Game.STATE_FLY:
+				move = new Fly();
+				break;
+		}
+
+		return move != null && move.validMove(this, piece, dest);
+	}
 }
