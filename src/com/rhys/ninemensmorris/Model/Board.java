@@ -115,31 +115,6 @@ public class Board {
 		return false;
 	}
 
-	/**
-	 * @param //dest
-	 * @return
-	 */
-	//@Deprecated
-	/*public boolean pieceInMill(Spot dest) {
-		int count = 0;
-		for (Spot[] mill : possibleMills) {
-			for (Spot theSpot : mill) {
-				if (theSpot.equals(dest)) {
-					for (Spot aSpot : mill) {
-						if (aSpot.hasPiece() && aSpot.getPiece().equals(dest.getPiece())) {
-							count++;
-						}
-					}
-					if (count == 3) {
-						return true;
-					}
-					count = 0;
-				}
-			}
-		}
-		return false;
-	}*/
-
 	public boolean pieceInMill(String srcStr, String destStr) {
 		boolean millCreated = false;
 
