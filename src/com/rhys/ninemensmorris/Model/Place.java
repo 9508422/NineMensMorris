@@ -1,60 +1,57 @@
 package com.rhys.ninemensmorris.Model;
 
 /**
- * @author  Rhys Gevaux
+ * @author Rhys Gevaux
  * @version 2015.05.27
  */
 public class Place implements Move {
-    private Player player;
-    private Piece piece;
-    private Spot src;
-    private Spot dest;
+	private Player player;
+	private Piece piece;
+	private Spot src;
+	private Spot dest;
 
-    /**
-     *
-     * @param player
-     * @param piece
-     * @param noSpot
-     * @param dest
-     * @return
-     */
-    @Override
-    public boolean move(Player player, Piece piece, Spot noSpot, Spot dest) {
-        if (piece.place(dest)) {
-            this.player = player;
-            this.piece = piece;
-            this.src = noSpot;
-            this.dest = dest;
-            return true;
-        } else {
-            return false;
-        }
-    }
+	/**
+	 * @param player
+	 * @param piece
+	 * @param noSpot
+	 * @param dest
+	 * @return
+	 */
+	@Override
+	public boolean move(Player player, Piece piece, Spot noSpot, Spot dest) {
+		if (piece.place(dest)) {
+			this.player = player;
+			this.piece = piece;
+			this.src = noSpot;
+			this.dest = dest;
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    /**
-     *
-     */
-    @Override
-    public void undo() {
-        piece.setSpot(src);
-        dest.removePiece();
-    }
+	/**
+	 *
+	 */
+	@Override
+	public void undo() {
+		piece.setSpot(src);
+		dest.removePiece();
+	}
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Player getPlayer() {
-        return player;
-    }
+	/**
+	 * @return
+	 */
+	@Override
+	public Player getPlayer() {
+		return player;
+	}
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Spot getDest() {
-        return dest;
-    }
+	/**
+	 * @return
+	 */
+	@Override
+	public Spot getDest() {
+		return dest;
+	}
 }

@@ -5,98 +5,89 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author  Rhys Gevaux
+ * @author Rhys Gevaux
  * @version 2015.05.27
  */
 public class Spot {
-    private final Set<Spot> neighbours;
-    private final String coord;
-    private Piece piece;
+	private final Set<Spot> neighbours;
+	private final String coord;
+	private Piece piece;
 
-    /**
-     *
-     * @param coord
-     */
-    public Spot(String coord) {
-        this.neighbours = new HashSet<Spot>();
-        this.coord = coord;
-        this.piece = null;
-    }
+	/**
+	 * @param coord
+	 */
+	public Spot(String coord) {
+		this.neighbours = new HashSet<Spot>();
+		this.coord = coord;
+		this.piece = null;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public Set<Spot> getNeighbours() {
-        return neighbours;
-    }
+	/**
+	 * @return
+	 */
+	public Set<Spot> getNeighbours() {
+		return neighbours;
+	}
 
-    /**
-     *
-     * @param neighbours
-     */
-    public void setNeighbours(Spot[] neighbours) {
-        Collections.addAll(this.neighbours, neighbours);
-    }
+	/**
+	 * @param neighbours
+	 */
+	public void setNeighbours(Spot[] neighbours) {
+		Collections.addAll(this.neighbours, neighbours);
+	}
 
-    /**
-     *
-     * @param neighbour
-     * @return
-     */
-    public boolean hasNeighbour(Spot neighbour) {
-        return neighbours.contains(neighbour);
-    }
+	/**
+	 * @param neighbour
+	 * @return
+	 */
+	public boolean hasNeighbour(Spot neighbour) {
+		return neighbours.contains(neighbour);
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getCoord() {
-        return coord;
-    }
+	/**
+	 * @return
+	 */
+	public String getCoord() {
+		return coord;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public Piece getPiece() {
-        return piece;
-    }
+	/**
+	 * @return
+	 */
+	public Piece getPiece() {
+		return piece;
+	}
 
-    /**
-     *
-     * @param piece
-     */
-    public void setPiece(Piece piece) {
-        this.piece = piece;
-    }
+	/**
+	 * @param piece
+	 */
+	public void setPiece(Piece piece) {
+		this.piece = piece;
+	}
 
-    /**
-     *
-     */
-    public void removePiece() {
-        piece = null;
-    }
+	/**
+	 *
+	 */
+	public void removePiece() {
+		piece = null;
+	}
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String toString() {
-        if (hasPiece()) {
-            return piece.toString();
-        } else {
-            return "O";
-        }
-    }
+	/**
+	 * @return
+	 */
+	@Override
+	public String toString() {
+		if (hasPiece()) {
+			return piece.toString();
+		} else {
+			return "O";
+		}
+	}
 
-    /**
-     *
-     * @return
-     */
-    public boolean hasPiece() {
-        return !(piece == null);
-    }
+	/**
+	 * @return
+	 */
+	public boolean hasPiece() {
+		return !(piece == null);
+	}
 }
