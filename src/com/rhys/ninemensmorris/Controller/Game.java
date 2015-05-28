@@ -40,7 +40,7 @@ public class Game {
 		this.playerTwo = null;
 		this.currentPlayer = null;
 		this.board = Board.getInstance();
-		display = Display.getInstance();
+		this.display = Display.getInstance();
 		this.moveStack = new Stack<Move>();
 	}
 
