@@ -14,12 +14,13 @@ import java.util.Stack;
  * @version 2015.05.27
  */
 public class Game {
+	private static final Game INSTANCE = new Game(); // singleton instance
+
 	// Static integers for all the game states.
 	public static final int STATE_PLACE = 0;
 	public static final int STATE_REMOVE = 1;
 	public static final int STATE_SLIDE = 2;
 	public static final int STATE_FLY = 3;
-	private static final Game INSTANCE = new Game();
 	private static final int STATE_COMPLETE = 4;
 
 	private final Board board;
@@ -44,6 +45,10 @@ public class Game {
 		this.moveStack = new Stack<Move>();
 	}
 
+	/**
+	 *
+	 * @return instance of Game
+	 */
 	public static Game getInstance() {
 		return INSTANCE;
 	}
@@ -179,7 +184,7 @@ public class Game {
 	 * Sets the game state given a destination spot of a recent move.
 	 */
 	private void setGameState() {
-		if (board.millCreated()) {
+		if (board.updateMills()) {
 			gameState = STATE_REMOVE;
 			display.out("Mill created!\n");
 		} else if (!getOtherPlayer().hasAllPiecesPlaced()) {

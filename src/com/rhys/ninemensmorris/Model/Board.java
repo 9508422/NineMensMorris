@@ -167,23 +167,23 @@ public class Board {
 	}
 
 	/**
-	 * @param coord
-	 * @return
+	 * @param coord coordinate of desired spot
+	 * @return the spot connected to given coordinate
 	 */
 	public Spot getSpot(String coord) {
 		return spotMap.get(coord);
 	}
 
 	/**
-	 * @return
+	 * @return instance of Board
 	 */
 	public static Board getInstance() {
 		return INSTANCE;
 	}
 
 	/**
-	 * @param coords
-	 * @return
+	 * @param coords coordinates of Spots to check for their existence
+	 * @return if the Board has Spots at all the given coordinates
 	 */
 	public boolean hasSpots(String[] coords) {
 		for (String coord : coords) {
@@ -195,8 +195,8 @@ public class Board {
 	}
 
 	/**
-	 * @param coord
-	 * @return
+	 * @param coord coordinate of the Spot to check for its existence
+	 * @return if the Board has a Spot at the given coordinate
 	 */
 	public boolean hasSpot(String coord) {
 		for (String possibleSpot : spotMap.keySet()) {
@@ -208,9 +208,9 @@ public class Board {
 	}
 
 	/**
-	 * @return
+	 * @return if a Mill was created
 	 */
-	public boolean millCreated() {
+	public boolean updateMills() {
 		boolean millCreated = false;
 
 		for (Spot spot : possibleMills.keySet()) {
@@ -234,8 +234,8 @@ public class Board {
 	}
 
 	/**
-	 * @param spots
-	 * @return
+	 * @param spots the Spots to check for if they have Pieces on them
+	 * @return if all the Spots have Pieces on them
 	 */
 	private boolean allHavePieces(Spot[] spots) {
 		for (Spot spot : spots) {
@@ -247,8 +247,8 @@ public class Board {
 	}
 
 	/**
-	 * @param spots
-	 * @return
+	 * @param spots the Spots to check if all the Pieces on them belong to the same Player
+	 * @return if all the Spots have Pieces belonging to the same Player
 	 */
 	private boolean allPiecesEqual(Spot[] spots) {
 		for (int i = 1; i < spots.length; i++) {
