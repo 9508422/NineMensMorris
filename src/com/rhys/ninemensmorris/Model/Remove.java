@@ -8,6 +8,7 @@ public class Remove implements Move {
 	private Player player;
 	private Piece piece;
 	private Spot src;
+	private Spot dest;
 
 	@Override
 	public boolean validMove(Player player, Piece piece, Spot dest) {
@@ -27,7 +28,16 @@ public class Remove implements Move {
 		this.player = player;
 		this.piece = piece;
 		this.src = src;
+		this.dest = dest;
 		this.piece.getPlayer().removePiece(this.piece);
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public void move() {
+		move(player, piece, src, dest);
 	}
 
 	/**

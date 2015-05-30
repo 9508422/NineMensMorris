@@ -87,7 +87,7 @@ public class Game {
 				display.out("Game stopped by " + currentPlayer.toString("name") + "\n");
 				System.exit(1);
 			} else if (input.equals("undo")) {
-				display.out(undo());
+				undo();
 			} else if (input.length() == 2 && gameState == STATE_PLACE) {
 				if (board.hasSpot(input)) {
 					move(null, input);
@@ -132,17 +132,25 @@ public class Game {
 
 	/**
 	 * Undoes the most recent move.
-	 *
-	 * @return A string to output based on if the undo was successful.
 	 */
-	String undo() {
-		if (moveStack.size() > 0) {
+	void undo() {
+		if (moveStack.size() > 1) {
+			currentPlayer = moveStack.peek().getPlayer(); // sets the currentPlayer to the player who made the last move
+			moveStack.pop().undo(); // undoes last move
+
+			// redoes the move before to get correct game state
+			moveStack.peek().undo();
+			setGameState();
+			moveStack.peek().move();
+			setGameState();
+			display.out("Move undone.\n");
+		} else if (moveStack.size() > 0) {
 			currentPlayer = moveStack.peek().getPlayer();
 			moveStack.pop().undo();
 			setGameState();
-			return "Move undone.\n";
+			display.out("Move undone.\n");
 		} else {
-			return "No moves to undo!\n";
+			display.out("No moves to undo!\n");
 		}
 	}
 
@@ -159,9 +167,7 @@ public class Game {
 			display.out("Move successful.\n");
 
 			setGameState();
-			if (gameState == STATE_REMOVE) {
-				display.out("Mill created!\n");
-			} else {
+			if (gameState != STATE_REMOVE) {
 				changeTurn();
 			}
 		} else {
@@ -175,6 +181,7 @@ public class Game {
 	private void setGameState() {
 		if (board.millCreated()) {
 			gameState = STATE_REMOVE;
+			display.out("Mill created!\n");
 		} else if (!getOtherPlayer().hasAllPiecesPlaced()) {
 			gameState = STATE_PLACE;
 		} else if (getOtherPlayer().hasThreePiecesLeft()) {

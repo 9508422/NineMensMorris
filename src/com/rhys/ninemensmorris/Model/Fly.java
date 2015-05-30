@@ -39,6 +39,14 @@ public class Fly implements Move {
 	}
 
 	/**
+	 * 
+	 */
+	@Override
+	public void move() {
+		move(player, piece, src, dest);
+	}
+
+	/**
 	 *
 	 */
 	@Override

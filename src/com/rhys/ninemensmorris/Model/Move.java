@@ -25,6 +25,11 @@ public interface Move {
 	/**
 	 *
 	 */
+	void move();
+
+	/**
+	 *
+	 */
 	void undo();
 
 	/**

@@ -34,6 +34,14 @@ public class Place implements Move {
 	 *
 	 */
 	@Override
+	public void move() {
+		move(player, piece, src, dest);
+	}
+
+	/**
+	 *
+	 */
+	@Override
 	public void undo() {
 		piece.setSpot(src);
 		dest.removePiece();
