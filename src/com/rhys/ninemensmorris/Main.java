@@ -7,12 +7,13 @@ import com.rhys.ninemensmorris.Controller.Game;
  * @version 2015.05.27
  */
 class Main {
-	/**
-	 * Creates and starts game
-	 * @param args command line arguments
-	 */
-	public static void main(String[] args) {
-		Game game = Game.getInstance();
-		game.play();
-	}
+    /**
+     * Creates and starts game
+     *
+     * @param args command line arguments (not used)
+     */
+    public static void main(String[] args) {
+        Game game = Game.getInstance();
+        game.play();
+    }
 }

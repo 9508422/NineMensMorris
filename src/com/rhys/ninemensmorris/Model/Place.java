@@ -5,54 +5,39 @@ package com.rhys.ninemensmorris.Model;
  * @version 2015.05.27
  */
 public class Place implements Move {
-	private Player player;
-	private Piece piece;
-	private Spot src;
-	private Spot dest;
+    private Player player;
+    private Piece piece;
+    private Spot src;
+    private Spot dest;
 
-	public boolean validMove(Player player, Piece piece, Spot dest) {
-		return piece.validPlace(dest);
-	}
+    @Override
+    public boolean validMove(Player player, Piece piece, Spot src, Spot dest) {
+        return player.hasPiece(piece) && piece.validPlace(dest);
+    }
 
-	/**
-	 * @param player
-	 * @param piece
-	 * @param noSpot
-	 * @param dest
-	 * @return
-	 */
-	@Override
-	public void move(Player player, Piece piece, Spot noSpot, Spot dest) {
-		piece.place(dest);
-		this.player = player;
-		this.piece = piece;
-		this.src = noSpot;
-		this.dest = dest;
-	}
+    @Override
+    public void move(Player player, Piece piece, Spot noSpot, Spot dest) {
+        piece.place(dest);
+        this.player = player;
+        this.piece = piece;
+        this.src = noSpot;
+        this.dest = dest;
+    }
 
-	/**
-	 *
-	 */
-	@Override
-	public void move() {
-		move(player, piece, src, dest);
-	}
+    @Override
+    public void move() {
+        move(player, piece, src, dest);
+    }
 
-	/**
-	 *
-	 */
-	@Override
-	public void undo() {
-		piece.setSpot(src);
-		dest.removePiece();
-	}
+    @Override
+    public void undo() {
+        piece.removeSpot();
+        dest.removePiece();
+    }
 
-	/**
-	 * @return
-	 */
-	@Override
-	public Player getPlayer() {
-		return player;
-	}
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
 
 }

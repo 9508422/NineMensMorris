@@ -6,35 +6,36 @@ package com.rhys.ninemensmorris.Model;
  */
 public interface Move {
 
-	/**
-	 * @param player
-	 * @param piece
-	 * @param dest
-	 * @return
-	 */
-	boolean validMove(Player player, Piece piece, Spot dest);
+    /**
+     * @param player the Player making the Move
+     * @param piece  the Piece to be moved
+     * @param src    the source Spot
+     * @param dest   the destination Spot
+     * @return if the desired Move is valid
+     */
+    boolean validMove(Player player, Piece piece, Spot src, Spot dest);
 
-	/**
-	 * @param player
-	 * @param piece
-	 * @param src
-	 * @param dest
-	 */
-	void move(Player player, Piece piece, Spot src, Spot dest);
+    /**
+     * @param player the Player making the Move
+     * @param piece  the Piece to be moved
+     * @param src    the source Spot
+     * @param dest   the destination Spot
+     */
+    void move(Player player, Piece piece, Spot src, Spot dest);
 
-	/**
-	 *
-	 */
-	void move();
+    /**
+     * Required by Game to redo an undone move to correctly set the game state
+     */
+    void move();
 
-	/**
-	 *
-	 */
-	void undo();
+    /**
+     * Undoes the Move
+     */
+    void undo();
 
-	/**
-	 * @return
-	 */
-	Player getPlayer();
+    /**
+     * @return the Player associated with the Move
+     */
+    Player getPlayer();
 
 }

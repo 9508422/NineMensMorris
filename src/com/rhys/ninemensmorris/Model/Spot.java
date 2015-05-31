@@ -9,75 +9,75 @@ import java.util.Set;
  * @version 2015.05.27
  */
 public class Spot {
-	private final Set<Spot> neighbours;
-	private Piece piece;
+    private final Set<Spot> neighbours;
+    private Piece piece;
 
-	/**
-	 */
-	public Spot() {
-		this.neighbours = new HashSet<Spot>();
-		this.piece = null;
-	}
+    /**
+     */
+    public Spot() {
+        this.neighbours = new HashSet<Spot>();
+        this.piece = null;
+    }
 
-	/**
-	 * @return
-	 */
-	public Set<Spot> getNeighbours() {
-		return neighbours;
-	}
+    /**
+     * @return the neighbours of the Spot
+     */
+    public Set<Spot> getNeighbours() {
+        return neighbours;
+    }
 
-	/**
-	 * @param neighbours
-	 */
-	public void setNeighbours(Spot[] neighbours) {
-		Collections.addAll(this.neighbours, neighbours);
-	}
+    /**
+     * @param neighbours the neighbours to be set for the Spot
+     */
+    public void setNeighbours(Spot[] neighbours) {
+        Collections.addAll(this.neighbours, neighbours);
+    }
 
-	/**
-	 * @param neighbour
-	 * @return
-	 */
-	public boolean hasNeighbour(Spot neighbour) {
-		return neighbours.contains(neighbour);
-	}
+    /**
+     * @param neighbour the Spot to be checked
+     * @return if the Spot has a given Spot as its neighbour
+     */
+    public boolean hasNeighbour(Spot neighbour) {
+        return neighbours.contains(neighbour);
+    }
 
-	/**
-	 * @return
-	 */
-	public Piece getPiece() {
-		return piece;
-	}
+    /**
+     * @return the Piece assigned to the Spot
+     */
+    public Piece getPiece() {
+        return piece;
+    }
 
-	/**
-	 * @param piece
-	 */
-	public void setPiece(Piece piece) {
-		this.piece = piece;
-	}
+    /**
+     * @param piece the Piece to be put on the Spot
+     */
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
 
-	/**
-	 *
-	 */
-	public void removePiece() {
-		piece = null;
-	}
+    /**
+     * @return if the Spot has a Piece
+     */
+    public boolean hasPiece() {
+        return !(piece == null);
+    }
 
-	/**
-	 * @return
-	 */
-	@Override
-	public String toString() {
-		if (hasPiece()) {
-			return piece.toString();
-		} else {
-			return "O";
-		}
-	}
+    /**
+     * Removes the Piece from the Spot
+     */
+    public void removePiece() {
+        piece = null;
+    }
 
-	/**
-	 * @return
-	 */
-	public boolean hasPiece() {
-		return !(piece == null);
-	}
+    /**
+     * @return a String version of the Spot
+     */
+    @Override
+    public String toString() {
+        if (hasPiece()) {
+            return piece.toString();
+        } else {
+            return "O";
+        }
+    }
 }
