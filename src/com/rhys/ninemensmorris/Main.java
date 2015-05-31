@@ -4,7 +4,7 @@ import com.rhys.ninemensmorris.Controller.Game;
 
 /**
  * @author Rhys Gevaux
- * @version 2015.05.27
+ * @version 2015.05.31
  */
 class Main {
     /**

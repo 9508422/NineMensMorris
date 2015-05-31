@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * @author Rhys Gevaux
- * @version 2015.05.27
+ * @version 2015.05.31
  */
 public class Spot {
     private final Set<Spot> neighbours;

@@ -4,7 +4,7 @@ import com.rhys.ninemensmorris.Model.Board;
 
 /**
  * @author Rhys Gevaux
- * @version 2015.05.27
+ * @version 2015.05.31
  */
 public class Display {
     private static final Display INSTANCE = new Display();

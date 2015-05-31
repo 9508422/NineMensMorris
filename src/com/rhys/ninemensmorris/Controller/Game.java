@@ -11,7 +11,7 @@ import java.util.Stack;
 
 /**
  * @author Rhys Gevaux
- * @version 2015.05.27
+ * @version 2015.05.31
  */
 public class Game {
     // Static integers for all the game states.
@@ -65,9 +65,11 @@ public class Game {
 
         display.drawBoard();
 
+        // loop that runs the game until someone wins
         while (gameState != STATE_COMPLETE) {
             String input;
 
+            // checks game state for best output
             switch (gameState) {
                 case STATE_PLACE:
                     display.out(currentPlayer.toString("name") + ", place a piece (x1y1): ");
@@ -84,27 +86,28 @@ public class Game {
                     break;
             }
 
+            // take user input
             input = in.nextLine().trim().toLowerCase();
 
             if (input.equals("stop")) {
                 display.out("Game stopped by " + currentPlayer.toString("name") + "\n");
-                System.exit(1);
+                System.exit(1); // exit the game
             } else if (input.equals("undo")) {
                 undo();
-            } else if (input.length() == 2 && gameState == STATE_PLACE) {
+            } else if (input.length() == 2 && gameState == STATE_PLACE) { // e.g. "a1"
                 if (board.hasSpot(input)) {
                     move(null, input);
                 } else {
                     display.out("Spot doesn't exist.\n");
                 }
-            } else if (input.length() == 2 && gameState == STATE_REMOVE) {
+            } else if (input.length() == 2 && gameState == STATE_REMOVE) { // e.g. "a1"
                 if (board.hasSpot(input)) {
                     move(input, null);
                 } else {
                     display.out("Spot doesn't exist.\n");
                 }
             } else if (input.length() == 6 && input.contains("->") && (gameState == STATE_SLIDE ||
-                    gameState == STATE_FLY)) {
+                    gameState == STATE_FLY)) { // e.g. "a1->a4"
                 String splitStr[] = input.split("->");
                 if (board.hasSpots(splitStr)) {
                     move(splitStr[0], splitStr[1]);
@@ -164,10 +167,11 @@ public class Game {
      * @param destStr The destination spot of the move.
      */
     private void move(String srcStr, String destStr) {
+        // checks if move is valid
         if (currentPlayer.validMove(gameState, board.getSpot(srcStr), board.getSpot(destStr))) {
+            // makes move and puts it into the stack
             moveStack.push(currentPlayer.move(gameState, board.getSpot(srcStr), board.getSpot(destStr)));
             display.out("Move successful.\n");
-
             changeGameState();
         } else {
             display.out("Move failed, try again.\n");

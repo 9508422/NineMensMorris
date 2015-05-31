@@ -2,7 +2,7 @@ package com.rhys.ninemensmorris.Model;
 
 /**
  * @author Rhys Gevaux
- * @version 2015.05.27
+ * @version 2015.05.31
  */
 public class Piece {
     private final Player player;

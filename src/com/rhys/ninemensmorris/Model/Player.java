@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * @author Rhys Gevaux
- * @version 2015.05.27
+ * @version 2015.05.31
  */
 public abstract class Player {
     private final Set<Piece> pieceSet;
@@ -125,12 +125,14 @@ public abstract class Player {
         Move move = null;
         Piece piece;
 
+        // if still placing Pieces, get an unplaced Piece
         if (gameState == Game.STATE_PLACE) {
             piece = getUnplacedPiece();
         } else {
             piece = src.getPiece();
         }
 
+        // creates the right Move type based on game state
         switch (gameState) {
             case Game.STATE_PLACE:
                 move = new Place();
@@ -173,12 +175,14 @@ public abstract class Player {
         Move move = null;
         Piece piece;
 
+        // if still placing Pieces, get an unplaced Piece
         if (gameState == Game.STATE_PLACE) {
             piece = getUnplacedPiece();
         } else {
             piece = src.getPiece();
         }
 
+        // creates the right Move type based on game state
         switch (gameState) {
             case Game.STATE_PLACE:
                 move = new Place();
@@ -194,6 +198,7 @@ public abstract class Player {
                 break;
         }
 
+        // move is valid if game state is valid, and if the result of validMove is true
         return move != null && move.validMove(this, piece, src, dest);
     }
 }

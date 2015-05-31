@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * @author Rhys Gevaux
- * @version 2015.05.27
+ * @version 2015.05.31
  */
 public class Board {
     private static final Board INSTANCE = new Board();
@@ -25,20 +25,22 @@ public class Board {
      * Creates new Hash Set to hold all current Mills
      */
     private Board() {
+        // add spots into spotMap
         spotMap = new HashMap<String, Spot>();
         String[] possibleSpots = new String[]{
-                "a7", "d7", "g7",
-                "b6", "d6", "f6",
-                "c5", "d5", "e5",
-                "a4", "b4", "c4", "e4", "f4", "g4",
-                "c3", "d3", "e3",
-                "b2", "d2", "f2",
-                "a1", "d1", "g1"
+                "a7",             "d7",             "g7",
+                      "b6",       "d6",       "f6",
+                            "c5", "d5", "e5",
+                "a4", "b4", "c4",       "e4", "f4", "g4",
+                            "c3", "d3", "e3",
+                      "b2",       "d2",       "f2",
+                "a1",             "d1",             "g1"
         };
         for (String coord : possibleSpots) {
             spotMap.put(coord, new Spot());
         }
 
+        // set all the neighbours of the Spots
         getSpot("a1").setNeighbours(new Spot[]{getSpot("a4"), getSpot("d1")});
         getSpot("a4").setNeighbours(new Spot[]{getSpot("a1"), getSpot("a7"), getSpot("b4")});
         getSpot("a7").setNeighbours(new Spot[]{getSpot("a4"), getSpot("d7")});
@@ -64,6 +66,7 @@ public class Board {
         getSpot("g4").setNeighbours(new Spot[]{getSpot("f4"), getSpot("g1"), getSpot("g7")});
         getSpot("g7").setNeighbours(new Spot[]{getSpot("d7"), getSpot("g4")});
 
+        // set all the possible Mills for each Spot
         possibleMills = new HashMap<Spot, Spot[][]>();
 
         possibleMills.put(getSpot("a1"), new Spot[][]{
@@ -213,19 +216,22 @@ public class Board {
     public boolean updateMills() {
         boolean millCreated = false;
 
-        for (Spot spot : possibleMills.keySet()) {
+        // for each spot
+        for (Spot spot : spotMap.values()) {
+            // reset Piece Mill state to false
             if (spot.hasPiece()) {
                 spot.getPiece().setInMill(false);
             }
+            // check if the Spot's possible Mills are a Mill
             for (Spot[] possibleMill : possibleMills.get(spot)) {
                 if (allHavePieces(possibleMill) && allPiecesEqual(possibleMill)) {
-                    spot.getPiece().setInMill(true);
+                    spot.getPiece().setInMill(true); // if it's a Mill, set Piece Mill state to true
                     if (!mills.contains(possibleMill)) {
-                        mills.add(possibleMill);
+                        mills.add(possibleMill); // add Mill to Mills collection
                         millCreated = true;
                     }
                 } else {
-                    mills.remove(possibleMill);
+                    mills.remove(possibleMill); // remove from Mills collection if it isn't a Mill
                 }
             }
         }
