@@ -10,6 +10,8 @@ public class Piece {
 	private boolean inMill;
 
 	/**
+	 * Constructor for Piece
+	 * Takes in assigned Player
 	 * @param player
 	 */
 	public Piece(Player player) {
@@ -19,50 +21,53 @@ public class Piece {
 	}
 
 	/**
-	 * @return
+	 * @return if the Piece is in a Mill
 	 */
 	public boolean getInMill() {
 		return inMill;
 	}
 
 	/**
-	 *
+	 * Sets if the Piece is or isn't in a Mill
 	 */
 	public void setInMill(boolean bool) {
 		inMill = bool;
 	}
 
 	/**
-	 * @return
+	 * @return the Spot that the Piece is located on
 	 */
 	public Spot getSpot() {
 		return spot;
 	}
 
 	/**
-	 * @param spot
+	 * Sets the Spot that the Piece is placed on
+	 * @param spot The desired Spot for Piece to be placed on
 	 */
 	public void setSpot(Spot spot) {
 		this.spot = spot;
 	}
 
 	/**
-	 * @return
+	 * @return if the Piece is located on a Spot
 	 */
 	public boolean hasSpot() {
 		return spot != null;
 	}
 
 	/**
-	 * @param dest
-	 * @return
+	 * Checks if a Place move is valid
+	 * @param dest the destination Spot to be tested
+	 * @return if the Place move is valid
 	 */
 	public boolean validPlace(Spot dest) {
 		return !dest.hasPiece();
 	}
 
 	/**
-	 * @param dest
+	 * Places the Piece on the desired Spot
+	 * @param dest the destination Spot for the Piece to be placed on
 	 */
 	public void place(Spot dest) {
 		dest.setPiece(this);
@@ -70,13 +75,15 @@ public class Piece {
 	}
 
 	/**
-	 * @return
+	 * Checks if a Remove move is valid
+	 * @return if the Remove move is valid
 	 */
 	public boolean validRemove() {
 		return spot != null && ((!player.allPiecesInMill() && !inMill) || player.allPiecesInMill());
 	}
 
 	/**
+	 * Removes the Piece from its current spot
 	 */
 	public void remove() {
 		spot.removePiece();
@@ -84,15 +91,16 @@ public class Piece {
 	}
 
 	/**
-	 * @param dest
-	 * @return
+	 * Checks if a Slide move is valid
+	 * @param dest the destination Spot to be tested
+	 * @return if the Slide move is valid
 	 */
 	public boolean validSlide(Spot dest) {
 		return spot.hasNeighbour(dest) && !dest.hasPiece();
 	}
 
 	/**
-	 * @param dest
+	 * @param dest the destination Spot for the Piece to be placed on
 	 */
 	public void slide(Spot dest) {
 		spot.removePiece();
@@ -101,15 +109,16 @@ public class Piece {
 	}
 
 	/**
-	 * @param dest
-	 * @return
+	 * Checks if a Fly move is valid
+	 * @param dest the destination Spot to be tested
+	 * @return if the Fly move is valid
 	 */
 	public boolean validFly(Spot dest) {
 		return !dest.hasPiece();
 	}
 
 	/**
-	 * @param dest
+	 * @param dest the destination Spot for the Piece to be placed on
 	 */
 	public void fly(Spot dest) {
 		spot.removePiece();
@@ -118,22 +127,23 @@ public class Piece {
 	}
 
 	/**
-	 * @param piece
-	 * @return
+	 * Pieces are determined to be equal if they belong to the same Player
+	 * @param piece the Piece to be equated too
+	 * @return if the Pieces are equal
 	 */
 	public boolean equals(Piece piece) {
 		return player.equals(piece.getPlayer());
 	}
 
 	/**
-	 * @return
+	 * @return the Player that the Piece belongs to
 	 */
 	public Player getPlayer() {
 		return player;
 	}
 
 	/**
-	 * @return
+	 * @return a string containing the "colour" of the Player
 	 */
 	@Override
 	public String toString() {

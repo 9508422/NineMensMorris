@@ -6,8 +6,8 @@ package com.rhys.ninemensmorris.Model;
  */
 public class Human extends Player {
 	/**
-	 *
-	 * @param name
+	 * Constructor for Human, calls Player constructor
+	 * @param name name of Human Player
 	 */
 	public Human(String name) {
 		super(name);

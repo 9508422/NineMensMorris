@@ -8,7 +8,8 @@ import com.rhys.ninemensmorris.Controller.Game;
  */
 class Main {
 	/**
-	 * @param args
+	 * Creates and starts game
+	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
 		Game game = Game.getInstance();

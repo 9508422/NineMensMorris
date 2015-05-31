@@ -19,14 +19,14 @@ public class Display {
 
 	/**
 	 *
-	 * @return
+	 * @return Instance of the Display
 	 */
 	public static Display getInstance() {
 		return INSTANCE;
 	}
 
 	/**
-	 * @param output
+	 * @param output desired output for console
 	 */
 	public void out(String output) {
 		System.out.print(output);
